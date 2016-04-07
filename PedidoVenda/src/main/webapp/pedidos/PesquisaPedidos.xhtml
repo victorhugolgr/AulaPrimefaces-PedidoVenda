@@ -8,13 +8,14 @@
 	<ui:define name="titulo">Pesquisa de Pedidos</ui:define>
 
 	<ui:define name="corpo">
+            <h1>Pesquisa de Pedidos</h1>
 		<h:form>
-			<p:toolbar style="toolbar-opcoes">
+                    <p:toolbar styleClass ="toolbar-opcoes">
 				<p:toolbarGroup>
 					<p:commandButton value="Pesquisar"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
-					<p:button value="Novo"/>
+                                    <p:button value="Novo" outcome="/pedidos/CadastroPedido"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			

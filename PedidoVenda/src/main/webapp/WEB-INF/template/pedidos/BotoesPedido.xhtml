@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:toolbar styleClass="toolbar-opcoes">
+        <p:toolbarGroup>
+            <p:button value="Novo" outcome="/pedidos/CadastroPedido"/>
+            <p:commandButton value="Salvar" />
+        </p:toolbarGroup>
+        
+        <p:toolbarGroup align="right">
+            
+            <p:commandButton value="Emitir"/>
+            <p:commandButton value="Cancelar"/>
+            <p:commandButton value="Enviar por E-mail"/>
+            
+            <p:separator/>
+            
+            <p:button value="Pesquisar" outcome="/pedidos/PesquisaPedidos"/>
+        </p:toolbarGroup>
+    </p:toolbar>
+
+</ui:composition>
