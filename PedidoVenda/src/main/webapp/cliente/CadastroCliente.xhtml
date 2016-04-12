@@ -12,11 +12,11 @@
 
 		<p:toolbar styleClass="toolbar-opcoes">
 			<p:toolbarGroup>
-				<p:button value="Novo" outcome="/cliente/CadastroCliente" />
-				<p:commandButton value="Salvar" id="botaoSalvar" />
+				<p:button value="Novo" outcome="/cliente/CadastroCliente" icon="fa fa-plus"/>
+				<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-save"/>
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
-				<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente" />
+				<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente" icon="fa fa-search"/>
 			</p:toolbarGroup>
 		</p:toolbar>
 
@@ -41,7 +41,7 @@
 		</p:panelGrid>
 
 		<div style="margin-top: 20px">
-			<p:commandButton value="Adicionar Endereço" />
+			<p:commandButton value="Adicionar Endereço" onclick="PF('inclusaCliente').show()"/>
 
 			<p:dataTable
 				value="#{cadastroClienteEnderecoBean.enderecoClienteFiltrados}"
@@ -75,6 +75,31 @@
 				
 			</p:dataTable>
 		</div>
+
+		<p:dialog header="Inclusão de Endereço" modal="true" widgetVar="inclusaCliente" showEffect="Puff" hideEffect="Scale">
+			<h:panelGroup>
+				<p:panelGrid columns="2" columnClasses="rotulo, campo">
+					<p:outputLabel value="Logradouro" for="logradouro"/>
+					<p:inputText id="logradouro" size="80"/>
+					
+					<p:outputLabel value="Número" for="numero"/>
+					<p:inputText id="numero" size="50"/>
+					
+					<p:outputLabel value="Complemento" for="complemento"/>
+					<p:inputText id="complemento"/>
+					
+					<p:outputLabel value="CEP" for="cep"/>
+					<p:inputMask mask="99.999-999" id="cep"/>
+				</p:panelGrid>
+				<p:panelGrid columns="4" columnClasses="rotulo, campo, rotulo, campo">
+					<p:outputLabel value="Cidade" for="cidade"/>
+					<p:inputText id="cidade"/>
+					<p:outputLabel value="UF" for="uf"/>
+					<p:inputText id="uf" size="10"/>
+				</p:panelGrid>
+			</h:panelGroup>
+			<p:commandButton value="Incluir" type="button" oncomplete="PF('inclusaoCliente').hide()"/>
+		</p:dialog>
 
 	</ui:define>
 
