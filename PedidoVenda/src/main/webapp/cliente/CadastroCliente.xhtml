@@ -70,7 +70,7 @@
 				
 				<p:column style="width: 70px; text-align: center">
 					<p:commandButton icon="ui-icon-pencil" title="Editar"/>
-					<p:commandButton icon="ui-icon-trash" title="Excluir"/>
+					<p:commandButton icon="ui-icon-trash" title="Excluir" onclick="PF('exclusaoEndereco').show()"/>
 				</p:column>
 				
 			</p:dataTable>
@@ -100,6 +100,11 @@
 			</h:panelGroup>
 			<p:commandButton value="Incluir" type="button" oncomplete="PF('inclusaoCliente').hide()"/>
 		</p:dialog>
+		
+		<p:confirmDialog header="Exclusão endereço" message="Deseja excluir este endereço?" widgetVar="exclusaoEndereco">
+			<p:commandButton value="Sim" onclick="PF('exclusaoEndereco').hide()"/>
+			<p:commandButton value="Não" onclick="PF('exclusaoEndereco').hide()"/>
+		</p:confirmDialog>
 
 	</ui:define>
 

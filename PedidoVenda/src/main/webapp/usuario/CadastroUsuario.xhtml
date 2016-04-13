@@ -15,7 +15,7 @@
 				<p:commandButton value="Salvar" id="botaoSalvar" />
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
-				<p:button value="Pesquisar" outcome="/usuario/PesquisaUsuario"/>
+				<p:button value="Pesquisar" outcome="/usuario/PesquisaUsuario" />
 			</p:toolbarGroup>
 		</p:toolbar>
 
@@ -45,9 +45,16 @@
 				<h:outputText value="Vendas" />
 			</p:column>
 			<p:column style="width: 25px; text-align: center">
-				<p:commandButton icon="ui-icon-trash" />
+				<p:commandButton icon="ui-icon-trash"
+					onclick="PF('exclusaoGrupo').show()" />
 			</p:column>
 		</p:dataTable>
+
+		<p:confirmDialog header="Exclusão Grupo"
+			message="Deseja excluir este grupo?" widgetVar="exclusaoGrupo">
+			<p:commandButton value="Sim" onclick="PF('exclusaoGrupo').hide()" />
+			<p:commandButton value="Não" onclick="PF('exclusaoGrupo').hide()" />
+		</p:confirmDialog>
 
 	</ui:define>
 
