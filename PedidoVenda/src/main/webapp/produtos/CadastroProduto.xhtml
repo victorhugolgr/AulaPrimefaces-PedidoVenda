@@ -10,11 +10,13 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h1>Novo Produto</h1>
-	
+			
+			<p:messages autoUpdate="true"/>
+			
 			<p:toolbar styleClass="toolbar-opcoes">
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/produtos/CadastroProduto" />
-					<p:commandButton value="Salvar" id="botaoSalvar" />
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroProdutoBean.salvar}"/>
 				</p:toolbarGroup>
 	
 				<p:toolbarGroup align="right">
