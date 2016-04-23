@@ -12,7 +12,7 @@ import br.com.algaworks.pedidovenda.model.Cliente;
 import br.com.algaworks.pedidovenda.model.Endereco;
 import br.com.algaworks.pedidovenda.model.TipoPessoa;
 
-public class Conexao {
+public class ConexaoTeste {
 
 	@Test
 	public void test() {
