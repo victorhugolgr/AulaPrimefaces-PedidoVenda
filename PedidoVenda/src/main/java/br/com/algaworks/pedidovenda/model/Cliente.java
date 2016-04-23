@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -15,15 +18,26 @@ public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private String nome;
-	private String email;
-	private String documentoReceitaFederal;
-	private TipoPessoa tipo;
-	private List<Endereco> enderecos = new ArrayList<>();
-	
 	@Id
 	@GeneratedValue
+	private Long id;
+
+	@Column(nullable = false, length = 100)
+	private String nome;
+
+	@Column(nullable= false, length= 255)
+	private String email;
+	
+	@Column(name="doc_receita_federal", length=14, nullable=false)
+	private String documentoReceitaFederal;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable=false, length=10)
+	private TipoPessoa tipo;
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)	
+	private List<Endereco> enderecos = new ArrayList<>();
+
 	public Long getId() {
 		return id;
 	}
@@ -56,7 +70,7 @@ public class Cliente implements Serializable {
 		this.documentoReceitaFederal = documentoReceitaFederal;
 	}
 
-	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}

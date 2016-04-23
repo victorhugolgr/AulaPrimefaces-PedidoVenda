@@ -2,26 +2,45 @@ package br.com.algaworks.pedidovenda.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String logradouro;
-	private String numero;
-	private String complemento;
-	private String cidade;
-	private String uf;
-	private String cep;
-	private Cliente cliente;
-
+	
 	@Id
 	@GeneratedValue
+	private Long id;
+
+	@Column(nullable = false, length = 150)
+	private String logradouro;
+
+	@Column(nullable = false, length = 20)
+	private String numero;
+
+	@Column(length = 150)
+	private String complemento;
+
+	@Column(nullable = false, length = 60)
+	private String cidade;
+
+	@Column(nullable = false, length = 60)
+	private String uf;
+
+	@Column(nullable = false, length = 9)
+	private String cep;
+	
+	@ManyToOne
+	@JoinColumn(nullable=false)
+	private Cliente cliente;
+
+
 	public Long getId() {
 		return id;
 	}
@@ -62,7 +81,6 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 	}
 
-	@ManyToOne
 	public Cliente getCliente() {
 		return cliente;
 	}
