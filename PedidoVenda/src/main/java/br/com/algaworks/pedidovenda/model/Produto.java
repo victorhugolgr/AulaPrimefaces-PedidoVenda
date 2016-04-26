@@ -5,14 +5,35 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+@Entity
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
+	
+	@Column(unique=true, length=30,nullable=false)
 	private String sku;
+	
+	@Column(precision=10,scale=2)
 	private BigDecimal valorUnitario;
+
+	@Column(precision=10)
 	private int quantidade;
+	
+	@ManyToMany
+	@JoinTable(name="produto_categoria", joinColumns=@JoinColumn(name="produto_id"),
+				inverseJoinColumns = @JoinColumn(name="categoria_id"))
 	private List<Categoria> categoria = new ArrayList<>();
 
 	public Long getId() {

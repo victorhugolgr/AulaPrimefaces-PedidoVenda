@@ -2,13 +2,27 @@ package br.com.algaworks.pedidovenda.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Grupo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
+	
+	@Column(nullable=false, length=30)
 	private String nome;
+	@Column(length = 150)
 	private String descricao;
+	
 	private Usuario usuario;
 
 	public String getNome() {
