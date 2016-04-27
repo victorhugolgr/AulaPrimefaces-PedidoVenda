@@ -2,16 +2,13 @@ package br.com.algaworks.pedidovenda.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Produto implements Serializable {
@@ -21,20 +18,22 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@Column(unique=true, length=30,nullable=false)
+
+	@Column(nullable = false, length = 80)
+	private String nome;
+
+	@Column(unique = true, length = 30, nullable = false)
 	private String sku;
-	
-	@Column(precision=10,scale=2)
+
+	@Column(precision = 10, scale = 2)
 	private BigDecimal valorUnitario;
 
-	@Column(precision=10)
-	private int quantidade;
-	
-	@ManyToMany
-	@JoinTable(name="produto_categoria", joinColumns=@JoinColumn(name="produto_id"),
-				inverseJoinColumns = @JoinColumn(name="categoria_id"))
-	private List<Categoria> categoria = new ArrayList<>();
+	@Column(length = 10)
+	private int quantidadeEstoque;
+
+	@ManyToOne
+	@JoinColumn(name = "categoria_id", nullable = false)
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -52,6 +51,14 @@ public class Produto implements Serializable {
 		this.sku = sku;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
@@ -60,19 +67,19 @@ public class Produto implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public int getQuantidade() {
-		return quantidade;
+	public int getQuantidadeEstoque() {
+		return quantidadeEstoque;
 	}
 
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidadeEstoque(int quantidade) {
+		this.quantidadeEstoque = quantidade;
 	}
 
-	public List<Categoria> getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(List<Categoria> categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

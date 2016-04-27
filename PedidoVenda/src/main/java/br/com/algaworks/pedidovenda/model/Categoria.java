@@ -1,6 +1,7 @@
 package br.com.algaworks.pedidovenda.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class Categoria implements Serializable {
 	private Categoria categoriaPai;
 	
 	@OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL)
-	private List<Categoria> subCategorias;
+	private List<Categoria> subCategorias = new ArrayList<>();
 
 	public Long getId() {
 		return id;
