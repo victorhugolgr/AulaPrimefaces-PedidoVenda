@@ -6,16 +6,16 @@
     
     <p:panelGrid columns="4" style="width: 100%" columnClasses="rotulo,campo,rotulo, campo">
         <p:outputLabel value="Data de Entrega" for="dataEntrega"/>
-        <p:calendar id="dataEntrega" size="10" pattern="dd/MM/yyyy"/>
+        <p:calendar id="dataEntrega" size="10" pattern="dd/MM/yyyy" value="#{cadatroPedidoBean.pedido.dataEntrega}"/>
         
         <p:spacer/>
         <p:spacer/>
         
         <p:outputLabel value="Logradouro" for="entregaLogradouro"/>
-        <p:inputText id="entregaLogradouro" size="50"/>
+        <p:inputText id="entregaLogradouro" size="50" value="#{cadatroPedidoBean.pedido.enderecoEntrega}"/>
         
         <p:outputLabel value="Número" for="entregaNumero"/>
-        <p:inputText id="entregaNumero" size="5"/>
+        <p:inputText id="entregaNumero" size="5" value=""/>
         
         <p:outputLabel value="Complemento" for="entregaComplemento"/>
         <p:inputText id="entregaComplemento" size="50"/>
