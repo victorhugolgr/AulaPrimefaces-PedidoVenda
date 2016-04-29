@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
+import br.com.algaworks.pedidovenda.model.EnderecoEntrega;
 import br.com.algaworks.pedidovenda.model.Pedido;
 
 @Named
@@ -19,7 +20,9 @@ public class CadatroPedidoBean implements Serializable{
 	private List<Integer>  itens;
 
 	public CadatroPedidoBean(){
+		pedido = new Pedido();
 		setPedido(new Pedido());
+		pedido.setEnderecoEntrega(new EnderecoEntrega());
 		itens = new ArrayList<>();
                 itens.add(1);
 	}

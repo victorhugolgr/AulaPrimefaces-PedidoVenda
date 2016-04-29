@@ -12,6 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Cliente implements Serializable {
@@ -22,15 +26,19 @@ public class Cliente implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@NotBlank
 	@Column(nullable = false, length = 100)
 	private String nome;
 
+	@Email
 	@Column(nullable= false, length= 255)
 	private String email;
-	
+
+	@NotBlank 
 	@Column(name="doc_receita_federal", length=14, nullable=false)
 	private String documentoReceitaFederal;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false, length=10)
 	private TipoPessoa tipo;

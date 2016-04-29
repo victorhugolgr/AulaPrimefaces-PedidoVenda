@@ -43,8 +43,8 @@
 		<h:outputText value="R$ 0,00" style="font-weight: bold" id="subtotal" />
 
 		<p:outputLabel value="Valor de Desconto" for="valorDesconto" />
-		<p:inputText id="#{cadatroPedidoBean.pedido.valorDesconto}" size="10"
-			maxlength="10">
+		<p:inputText id="valorDesconto" size="10"
+			maxlength="10" value="#{cadatroPedidoBean.pedido.valorDesconto}">
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 		</p:inputText>
 
