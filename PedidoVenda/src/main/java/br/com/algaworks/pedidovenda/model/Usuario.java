@@ -12,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Usuario implements Serializable {
@@ -22,12 +26,15 @@ public class Usuario implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@NotBlank @Size(max = 80)
 	@Column(nullable = false, length = 150)
 	private String nome;
 
+	@Email @NotBlank @Size(max = 50)
 	@Column(unique = false, length = 60)
 	private String email;
 
+	@NotBlank @Size(max = 20)
 	@Column(length = 20, nullable = false)
 	private String senha;
 
