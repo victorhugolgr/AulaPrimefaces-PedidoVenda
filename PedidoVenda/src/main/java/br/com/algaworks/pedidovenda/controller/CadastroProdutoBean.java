@@ -3,7 +3,7 @@ package br.com.algaworks.pedidovenda.controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -32,6 +32,11 @@ public class CadastroProdutoBean implements Serializable {
 		System.out.println("Inicializando...");
 
 		categoriasRaizes = manager.createQuery("from Categoria", Categoria.class).getResultList();
+		
+		for (Categoria categoria : categoriasRaizes) {
+			System.out.println(categoria.getDescricao());
+		}
+		
 	}
 
 	public void salvar() {
@@ -41,16 +46,8 @@ public class CadastroProdutoBean implements Serializable {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
 	public List<Categoria> getCategoriasRaizes() {
 		return categoriasRaizes;
-	}
-
-	public void setCategoriasRaizes(List<Categoria> categoriasRaizes) {
-		this.categoriasRaizes = categoriasRaizes;
 	}
 
 }
