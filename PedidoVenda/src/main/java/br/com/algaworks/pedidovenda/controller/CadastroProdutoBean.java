@@ -3,9 +3,11 @@ package br.com.algaworks.pedidovenda.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 import br.com.algaworks.pedidovenda.model.Categoria;
 import br.com.algaworks.pedidovenda.model.Produto;
@@ -21,6 +23,8 @@ public class CadastroProdutoBean implements Serializable {
 	private CategoriaRepository categoriaRepository;
 	
 	private Produto produto;
+	
+	private Categoria categoriaPai;
 
 	private List<Categoria> categoriasRaizes;
 
@@ -28,6 +32,7 @@ public class CadastroProdutoBean implements Serializable {
 		produto = new Produto();
 	}
 
+	@PostConstruct
 	public void inicializar() {
 		System.out.println("Inicializando...");
 
@@ -35,10 +40,20 @@ public class CadastroProdutoBean implements Serializable {
 	}
 
 	public void salvar() {
+		System.out.println("Categoria pai selecionada: " + categoriaPai.getDescricao());
 	}
 
 	public Produto getProduto() {
 		return produto;
+	}
+
+	@NotNull
+	public Categoria getCategoriaPai() {
+		return categoriaPai;
+	}
+
+	public void setCategoriaPai(Categoria categoriaPai) {
+		this.categoriaPai = categoriaPai;
 	}
 
 	public List<Categoria> getCategoriasRaizes() {

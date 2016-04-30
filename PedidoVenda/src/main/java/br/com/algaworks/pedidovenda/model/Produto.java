@@ -44,7 +44,7 @@ public class Produto implements Serializable {
 	@Column(length = 10)
 	private int quantidadeEstoque;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
