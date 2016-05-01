@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,10 +38,13 @@ public class CadastroProdutoBean implements Serializable {
 		limpar();
 	}
 
-	@PostConstruct
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
 			categoriasRaizes = categoriaRepository.listarCategoriaRaizes();
+			
+			if(this.categoriaPai != null){
+				carregarSubcategorias();
+			}
 		}
 	}
 
@@ -61,9 +63,20 @@ public class CadastroProdutoBean implements Serializable {
 		limpar();
 		FacesUtil.addInfoMessage("Produto salvo com sucesso!");
 	}
+	
+	public boolean isEditando(){
+		return this.produto.getId() != null;
+	}
 
 	public Produto getProduto() {
 		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+		if(this.produto != null){
+			this.categoriaPai = this.produto.getCategoria().getCategoriaPai();
+		}
 	}
 
 	@NotNull
@@ -86,5 +99,6 @@ public class CadastroProdutoBean implements Serializable {
 	public void setSubCategorias(List<Categoria> subCategoriasRaizes) {
 		this.subCategorias = subCategoriasRaizes;
 	}
+	
 
 }
