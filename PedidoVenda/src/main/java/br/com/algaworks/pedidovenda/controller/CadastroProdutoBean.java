@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import br.com.algaworks.pedidovenda.model.Categoria;
 import br.com.algaworks.pedidovenda.model.Produto;
 import br.com.algaworks.pedidovenda.repository.CategoriaRepository;
+import br.com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
@@ -21,12 +22,13 @@ public class CadastroProdutoBean implements Serializable {
 
 	@Inject
 	private CategoriaRepository categoriaRepository;
-	
+
 	private Produto produto;
-	
+
 	private Categoria categoriaPai;
 
 	private List<Categoria> categoriasRaizes;
+	private List<Categoria> subCategorias;
 
 	public CadastroProdutoBean() {
 		produto = new Produto();
@@ -34,13 +36,18 @@ public class CadastroProdutoBean implements Serializable {
 
 	@PostConstruct
 	public void inicializar() {
-		System.out.println("Inicializando...");
-
-		categoriasRaizes = categoriaRepository.listarCategoriaRaizes();
+		if(FacesUtil.isNotPostBack()){
+			categoriasRaizes = categoriaRepository.listarCategoriaRaizes();
+		}
+	}
+	
+	public void carregarSubcategorias(){
+		subCategorias = categoriaRepository.subcategoriasDe(categoriaPai);
 	}
 
 	public void salvar() {
 		System.out.println("Categoria pai selecionada: " + categoriaPai.getDescricao());
+		System.out.println("SubCategoria pai selecionada: " + produto.getCategoria().getDescricao());
 	}
 
 	public Produto getProduto() {
@@ -58,6 +65,14 @@ public class CadastroProdutoBean implements Serializable {
 
 	public List<Categoria> getCategoriasRaizes() {
 		return categoriasRaizes;
+	}
+
+	public List<Categoria> getSubCategorias() {
+		return subCategorias;
+	}
+
+	public void setSubCategorias(List<Categoria> subCategoriasRaizes) {
+		this.subCategorias = subCategoriasRaizes;
 	}
 
 }

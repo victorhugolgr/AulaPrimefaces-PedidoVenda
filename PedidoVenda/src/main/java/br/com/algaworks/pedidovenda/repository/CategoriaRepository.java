@@ -8,19 +8,25 @@ import javax.persistence.EntityManager;
 
 import br.com.algaworks.pedidovenda.model.Categoria;
 
-public class CategoriaRepository implements Serializable{
+public class CategoriaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private EntityManager manager;
-	
-	public List<Categoria> listarCategoriaRaizes(){
-		return manager.createQuery("from Categoria", Categoria.class).getResultList();
+
+	public List<Categoria> listarCategoriaRaizes() {
+		return manager.createQuery("from Categoria where categoriaPai is null", Categoria.class).getResultList();
+	}
+
+	public Categoria porId(Long id) {
+		return manager.find(Categoria.class, id);
 	}
 	
-	public Categoria porId(Long id){
-		return manager.find(Categoria.class, id);
+	public List<Categoria> subcategoriasDe(Categoria categoriaPai){
+		return manager.createQuery("from Categoria where categoriaPai = :raiz", Categoria.class)
+				.setParameter("raiz", categoriaPai)
+				.getResultList();
 	}
 
 }
