@@ -10,10 +10,11 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h1>Pesquisa Produtos</h1>
-
+			<p:messages autoUpdate="true"/>
 			<p:toolbar style="toolbar-opcoes">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" />
+					<p:commandButton value="Pesquisar" action="#{pesquisaProdutosBean.pesquisar()}"
+						update="@form"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Novo" outcome="/produtos/CadastroProduto" />
@@ -23,10 +24,10 @@
 			<p:panelGrid columns="2" styleClass="painel-cadastro"
 				columnClasses="rotulo, campo">
 				<p:outputLabel value="SKU" for="sku" />
-				<p:inputText id="sku" size="20" />
+				<p:inputText id="sku" size="20" value="#{pesquisaProdutosBean.filter.sku}"/>
 
 				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60" />
+				<p:inputText id="nome" size="60" value="#{pesquisaProdutosBean.filter.nome}"/>
 			</p:panelGrid>
 
 			<p:dataTable id="produtosTable"
@@ -35,23 +36,25 @@
 				rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				
 				<p:column headerText="SKU" style="text-align: center; width: 100px">
-					<h:outputText value="123"/>
+					<h:outputText value="#{produto.sku}"/>
 				</p:column>
 				
 				<p:column headerText="Nome">
-					<h:outputText value="Bala de Morango"/>
+					<h:outputText value="#{produto.nome}"/>
 				</p:column>
 				
 				<p:column headerText="Categoria" style="width: 250px">
-					<h:outputText value="Doces - Bals e chichetes"/>
+					<h:outputText value="#{produto.categoria.categoriaPai.descricao} - #{produto.categoria.descricao}"/>
 				</p:column>
 				
 				<p:column headerText="Valor Unitário" style="text-align: right; width: 120px">
-					<h:outputText value="R$ 1,20"/>
+					<h:outputText value="#{produto.valorUnitario}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
 				</p:column>
 				
 				<p:column headerText="Estoque" style="text-align:ceter; width: 100px">
-					<h:outputText value="98"/>
+					<h:outputText value="#{produto.quantidadeEstoque}"/>
 				</p:column>
 				
 				<p:column style="width: 100px; text-align: center">

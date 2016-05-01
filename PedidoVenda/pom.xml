@@ -104,6 +104,13 @@
 			<version>5.2.4.Final</version>
 		</dependency>
 
+		<!-- Commons Lang (utilitarios) -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+			<scope>compile</scope>
+		</dependency>
 
 
 	</dependencies>
