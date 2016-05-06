@@ -1,8 +1,9 @@
 package br.com.algaworks.pedidovenda.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -12,8 +13,10 @@ import br.com.algaworks.pedidovenda.repository.filter.ProdutoFilter;
 import br.com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
 @Named
-@RequestScoped
-public class PesquisaProdutosBean {
+@ViewScoped
+public class PesquisaProdutosBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private ProdutoRepository produtoRepository;
