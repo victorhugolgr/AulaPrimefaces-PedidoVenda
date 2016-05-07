@@ -4,25 +4,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
 
 import br.com.algaworks.pedidovenda.model.Produto;
 import br.com.algaworks.pedidovenda.repository.ProdutoRepository;
-import br.com.algaworks.pedidovenda.util.cdi.CDIServiceLocator;
 
 @FacesConverter(forClass = Produto.class)
 public class ProdutoConverter implements Converter {
 
+	@Inject
 	private ProdutoRepository produtoRepository;
 
-	public ProdutoConverter() {
-		produtoRepository = CDIServiceLocator.getBean(ProdutoRepository.class);
-	}
-
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent componet, String value) {
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Produto retorno = null;
 
-		if (value != null) {
+		if (StringUtils.isNotEmpty(value)) {
 			Long id = new Long(value);
 			retorno = produtoRepository.porId(id);
 		}
@@ -39,5 +38,4 @@ public class ProdutoConverter implements Converter {
 
 		return "";
 	}
-
 }
