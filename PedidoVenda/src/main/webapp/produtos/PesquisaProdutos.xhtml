@@ -70,7 +70,7 @@
 					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
 						oncomplete="PF('confirmacaoExclusao').show()"
-						update=":frmPesquisa:confirmacaoExclusaoDialog">
+						update=":frmPesquisa:confirmacaoExclusaoDialog" process="@this">
 						<f:setPropertyActionListener
 							target="#{pesquisaProdutosBean.produtoSelecionado}"
 							value="#{produto}" />
