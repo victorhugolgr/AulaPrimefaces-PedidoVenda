@@ -1,26 +1,48 @@
 package br.com.algaworks.pedidovenda.controller;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.algaworks.pedidovenda.model.Usuario;
+import br.com.algaworks.pedidovenda.repository.UsuarioRepository;
+
 @Named
-@RequestScoped
-public class PesquisaUsuarioBean {
+@ViewScoped
+public class PesquisaUsuarioBean implements Serializable{
 
-	private List<Integer>  usuariosFiltrados;
+	private static final long serialVersionUID = 1L;
 
-	public PesquisaUsuarioBean(){
-		usuariosFiltrados = new ArrayList<>();
-		for (int i = 0; i < 50; i++) {
-			usuariosFiltrados.add(i);
-		}
+	private List<Usuario>  usuariosFiltrados;
+	
+	private String nomeFiltro;
+	
+	@Inject
+	private UsuarioRepository usuarioRepository;
+	
+	@PostConstruct
+	public void init(){
+		pesquisar();
+	}
+
+	public void pesquisar() {
+		usuariosFiltrados = usuarioRepository.filtrados(nomeFiltro);
 	}
 	
-	public List<Integer> getUsuariosFiltrados() {
+	public List<Usuario> getUsuariosFiltrados() {
 		return usuariosFiltrados;
+	}
+
+	public String getNomeFiltro() {
+		return nomeFiltro;
+	}
+
+	public void setNomeFiltro(String nomeFiltro) {
+		this.nomeFiltro = nomeFiltro;
 	}
 	
 }

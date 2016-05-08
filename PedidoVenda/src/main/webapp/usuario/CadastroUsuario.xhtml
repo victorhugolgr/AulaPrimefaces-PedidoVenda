@@ -8,13 +8,17 @@
 	<ui:define name="titulo">Novo Usuário</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
+		<f:metadata>
+			<f:viewParam name="usuario" value="#{cadastroUsuarioGrupoBean.usuario}"/>
+		</f:metadata>
+		<h:form id="frmUsuario">
 			<h1>Novo Usuário</h1>
 			<p:messages autoUpdate="true" closable="true" />
 			<p:toolbar styleClass="toobar-opcoes">
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/usuario/CadastroUsuario" />
-					<p:commandButton value="Salvar" id="botaoSalvar" update="@form"/>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						update=":frmUsuario" action="#{cadastroUsuarioGrupoBean.salvar}" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Pesquisar" outcome="/usuario/PesquisaUsuario" />
@@ -33,7 +37,9 @@
 				<p:password id="senha"
 					value="#{cadastroUsuarioGrupoBean.usuario.senha}" />
 			</p:panelGrid>
+		</h:form>
 
+		<h:form>
 			<div style="margin-top: 20px">
 				<h:panelGrid columns="2">
 					<p:selectOneMenu>
@@ -45,19 +51,24 @@
 
 			<p:dataTable style="margin-top: 10px" rows="5"
 				emptyMessage="Nenhum grupo associado" paginatorAlwaysVisible="false"
-				value="#{cadastroUsuarioGrupoBean.gruposUsuarioFiltrados}">
+				value="#{cadastroUsuarioGrupoBean.gruposUsuarioFiltrados}"
+				var="grupo" id="listaGrupoUsuario">
 				<p:column headerText="Grupo">
-					<h:outputText value="Vendas" />
+					<h:outputText value="#{grupo.descricao}" />
 				</p:column>
 				<p:column style="width: 25px; text-align: center">
 					<p:commandButton icon="ui-icon-trash"
-						onclick="PF('exclusaoGrupo').show()" />
+						onclick="PF('exclusaoGrupo').show()" title="Excluir Grupo">
+						<f:setPropertyActionListener value="#{grupo}"
+							target="#{cadastroUsuarioGrupoBean.grupoSelecionado}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
 			<p:confirmDialog header="Exclusão Grupo"
 				message="Deseja excluir este grupo?" widgetVar="exclusaoGrupo">
-				<p:commandButton value="Sim" onclick="PF('exclusaoGrupo').hide()" />
+				<p:commandButton value="Sim" onclick="PF('exclusaoGrupo').hide()"
+					action="#{cadastroUsuarioGrupoBean.removeGrupo}" update="listaGrupoUsuario"/>
 				<p:commandButton value="Não" onclick="PF('exclusaoGrupo').hide()" />
 			</p:confirmDialog>
 		</h:form>

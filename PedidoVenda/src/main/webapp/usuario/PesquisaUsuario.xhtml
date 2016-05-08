@@ -13,7 +13,7 @@
 
 			<p:toolbar style="toolbar-opcoes">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" />
+					<p:commandButton value="Pesquisar" action="#{pesquisaUsuarioBean.pesquisar}" update="@form"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Novo" outcome="/usuario/CadastroUsuario" />
@@ -21,7 +21,7 @@
 			</p:toolbar>
 			<p:panelGrid columns="2" styleClass="painel-cadastro">
 				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60" />
+				<p:inputText id="nome" size="60" value="#{pesquisaUsuarioBean.nomeFiltro}"/>
 			</p:panelGrid>
 
 			<p:dataTable id="produtosTable"
@@ -30,15 +30,17 @@
 				rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				
 				<p:column headerText="Nome">
-					<h:outputText value="Maria Conceição da Abadia"/>
+					<h:outputText value="#{usuario.nome}"/>
 				</p:column>
 				
 				<p:column headerText="E-mail">
-					<h:outputText value="jaqueline@arcanjos.com.br"/>
+					<h:outputText value="#{usuario.email}"/>
 				</p:column>
 				
 				<p:column style="width: 100px; text-align: center">
-					<p:button icon="ui-icon-pencil" title="Editar" />
+					<p:button icon="ui-icon-pencil" title="Editar" outcome="/usuario/CadastroUsuario">
+						<f:param name="usuario" value="#{usuario.id}"/>
+					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir"/>
 				</p:column>
 				
