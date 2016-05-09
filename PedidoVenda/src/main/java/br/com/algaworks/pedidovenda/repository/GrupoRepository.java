@@ -1,6 +1,7 @@
 package br.com.algaworks.pedidovenda.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,7 +18,11 @@ public class GrupoRepository implements Serializable {
 	@Inject
 	private EntityManager manager;
 
-	private Grupo porId(Long id) {
+	public List<Grupo> grupos(){
+		return manager.createQuery("from Grupo",Grupo.class).getResultList();
+	}
+	
+	public Grupo porId(Long id) {
 		return manager.find(Grupo.class, id);
 	}
 

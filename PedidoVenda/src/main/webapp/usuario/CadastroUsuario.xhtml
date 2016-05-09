@@ -18,7 +18,7 @@
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/usuario/CadastroUsuario" />
 					<p:commandButton value="Salvar" id="botaoSalvar"
-						update=":frmUsuario" action="#{cadastroUsuarioGrupoBean.salvar}" />
+						update=":frmUsuario :frm" action="#{cadastroUsuarioGrupoBean.salvar}" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Pesquisar" outcome="/usuario/PesquisaUsuario" />
@@ -39,19 +39,19 @@
 			</p:panelGrid>
 		</h:form>
 
-		<h:form>
+		<h:form id="frm">
 			<div style="margin-top: 20px">
 				<h:panelGrid columns="2">
-					<p:selectOneMenu>
-						<f:selectItem itemLabel="Administrador" />
+					<p:selectOneMenu value="#{cadastroUsuarioGrupoBean.grupoSelecionado}" var="grupo">
+						<f:selectItems value="#{cadastroUsuarioGrupoBean.grupos}" var="grupo" itemLabel="#{grupo.descricao}" itemValue="#{grupo}"/>
 					</p:selectOneMenu>
-					<p:commandButton value="Adicionar Grupo" />
+					<p:commandButton value="Adicionar Grupo" update="@form" action="#{cadastroUsuarioGrupoBean.adicionarGrupo}"/>
 				</h:panelGrid>
 			</div>
 
 			<p:dataTable style="margin-top: 10px" rows="5"
 				emptyMessage="Nenhum grupo associado" paginatorAlwaysVisible="false"
-				value="#{cadastroUsuarioGrupoBean.gruposUsuarioFiltrados}"
+				value="#{cadastroUsuarioGrupoBean.usuario.grupos}"
 				var="grupo" id="listaGrupoUsuario">
 				<p:column headerText="Grupo">
 					<h:outputText value="#{grupo.descricao}" />

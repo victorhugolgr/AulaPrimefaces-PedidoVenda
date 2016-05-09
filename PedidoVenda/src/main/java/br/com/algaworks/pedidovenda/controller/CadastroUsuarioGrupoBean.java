@@ -1,6 +1,7 @@
 package br.com.algaworks.pedidovenda.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,13 +12,12 @@ import javax.inject.Named;
 import br.com.algaworks.pedidovenda.model.Grupo;
 import br.com.algaworks.pedidovenda.model.Usuario;
 import br.com.algaworks.pedidovenda.repository.GrupoRepository;
-import br.com.algaworks.pedidovenda.repository.UsuarioRepository;
 import br.com.algaworks.pedidovenda.service.UsuarioService;
 import br.com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
-public class CadastroUsuarioGrupoBean implements Serializable{
+public class CadastroUsuarioGrupoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
@@ -25,12 +25,9 @@ public class CadastroUsuarioGrupoBean implements Serializable{
 	private UsuarioService usuarioService;
 
 	@Inject
-	private UsuarioRepository usuarioRepository;
-
-	@Inject
 	private GrupoRepository grupoRepository;
 
-	private List<Grupo> gruposUsuarioFiltrados;
+	private List<Grupo> grupos;
 
 	private Grupo grupoSelecionado;
 
@@ -43,15 +40,14 @@ public class CadastroUsuarioGrupoBean implements Serializable{
 
 	@PostConstruct
 	public void init() {
-		
-		if (usuario == null) {
-			gruposUsuarioFiltrados = usuarioRepository.grupos(usuario);
-		}
+
+		grupos = grupoRepository.grupos();
 
 	}
 
 	private void limpar() {
 		usuario = new Usuario();
+		usuario.setGrupos(new ArrayList<>());
 	}
 
 	public void salvar() {
@@ -60,9 +56,12 @@ public class CadastroUsuarioGrupoBean implements Serializable{
 		FacesUtil.addInfoMessage("Usuário salvo com sucesso!");
 	}
 
+	public void adicionarGrupo() {
+		usuario.getGrupos().add(grupoSelecionado);
+	}
+
 	public void removeGrupo() {
-		grupoRepository.remover(grupoSelecionado);
-		gruposUsuarioFiltrados.remove(grupoSelecionado);
+		usuario.getGrupos().remove(grupoSelecionado);
 		FacesUtil.addInfoMessage("Grupo excluído com sucesso!");
 	}
 
@@ -75,12 +74,12 @@ public class CadastroUsuarioGrupoBean implements Serializable{
 		System.out.println("setUsuario");
 	}
 
-	public List<Grupo> getGruposUsuarioFiltrados() {
-		return gruposUsuarioFiltrados;
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
 
-	public void setGruposUsuarioFiltrados(List<Grupo> gruposUsuarioFiltrados) {
-		this.gruposUsuarioFiltrados = gruposUsuarioFiltrados;
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 	public Grupo getGrupoSelecionado() {

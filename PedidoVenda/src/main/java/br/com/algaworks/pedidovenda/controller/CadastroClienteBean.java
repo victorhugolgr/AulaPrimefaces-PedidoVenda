@@ -1,28 +1,42 @@
 package br.com.algaworks.pedidovenda.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.algaworks.pedidovenda.model.Cliente;
 import br.com.algaworks.pedidovenda.model.Endereco;
 import br.com.algaworks.pedidovenda.model.TipoPessoa;
+import br.com.algaworks.pedidovenda.repository.ClienteRepository;
+import br.com.algaworks.pedidovenda.service.ClienteService;
+import br.com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
 @Named
-@RequestScoped
-public class CadastroClienteBean {
+@ViewScoped
+public class CadastroClienteBean implements Serializable{
 
-	private Cliente cliente = new Cliente();
+	private static final long serialVersionUID = 1L;
+
+	private Cliente cliente;
 	private Endereco endereco = new Endereco();
-	private List<Integer> enderecoClienteFiltrados;
 
-	public CadastroClienteBean() {
-		setEnderecoClienteFiltrados(new ArrayList<>());
-		for (int i = 0; i < 5; i++) {
-			getEnderecoClienteFiltrados().add(i);
-		}
+	@Inject
+	private ClienteRepository clienteRepository;
+	
+	@Inject
+	private ClienteService clienteService;
+
+	@PostConstruct
+	public void init() {
+		cliente = new Cliente();
+	}
+
+	public void salvar() {
+		clienteService.salvar(cliente);
+		FacesUtil.addInfoMessage("Cliente cadastrado com sucesso!");
 	}
 
 	public TipoPessoa[] listaTipoPessoa() {
@@ -43,14 +57,6 @@ public class CadastroClienteBean {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Integer> getEnderecoClienteFiltrados() {
-		return enderecoClienteFiltrados;
-	}
-
-	public void setEnderecoClienteFiltrados(List<Integer> enderecoClienteFiltrados) {
-		this.enderecoClienteFiltrados = enderecoClienteFiltrados;
 	}
 
 }

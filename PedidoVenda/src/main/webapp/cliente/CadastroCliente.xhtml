@@ -8,7 +8,7 @@
 	<ui:define name="titulo">Novo Cliente</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
+		<h:form id="frmCliente">
 			<h1>Novo Cliente</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
@@ -16,8 +16,8 @@
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/cliente/CadastroCliente"
 						icon="fa fa-plus" />
-					<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-save"
-						update="@form" />
+					<p:commandButton value="Salvar" icon="fa fa-save"
+						update="@form" action="#{cadastroClienteBean.salvar}"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente"
@@ -47,34 +47,35 @@
 					value="#{cadastroClienteBean.cliente.email}" />
 
 			</p:panelGrid>
-
+			</h:form>
+			<h:form>
 			<div style="margin-top: 20px">
 				<p:commandButton value="Adicionar Endereço"
 					onclick="PF('inclusaCliente').show()" />
 
-				<p:dataTable value="#{cadastroClienteBean.enderecoClienteFiltrados}"
+				<p:dataTable value="#{cadastroClienteBean.cliente.enderecos}"
 					emptyMessage="Nehum endereço cadastrado" paginator="true" rows="10"
 					style="margin-top: 10px" paginatorAlwaysVisible="false"
-					paginatorPosition="bottom">
+					paginatorPosition="bottom" var="endereco">
 
 					<p:column headerText="Logradouro">
-						<h:outputText value="Rua da Baixada Africana" />
+						<h:outputText value="#{endereco.logradouro}" />
 					</p:column>
 
 					<p:column headerText="Número" style="width: 70px">
-						<h:outputText value="123" />
+						<h:outputText value="#{endereco.numero}" />
 					</p:column>
 
 					<p:column headerText="Complemento">
-						<h:outputText value="Em frente a marinha" />
+						<h:outputText value="#{endereco.complemento}" />
 					</p:column>
 
 					<p:column headerText="CEP" style="width: 70px">
-						<h:outputText value="660.601-60" />
+						<h:outputText value="#{endereco.cep}" />
 					</p:column>
 
 					<p:column headerText="Cidade/UF">
-						<h:outputText value="São Paulo/SP" />
+						<h:outputText value="#{endereco.cidade}/#{endereco.uf}" />
 					</p:column>
 
 					<p:column style="width: 70px; text-align: center">
