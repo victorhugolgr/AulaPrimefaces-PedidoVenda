@@ -42,13 +42,13 @@ public class Endereco implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String uf;
 
-	@Size(max = 9)
+	@Size(max = 11)
 	@Column(nullable = false, length = 9)
 	private String cep;
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(nullable=false)
+	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 
 
