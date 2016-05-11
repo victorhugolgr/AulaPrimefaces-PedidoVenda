@@ -70,4 +70,10 @@ public class UsuarioRepository implements Serializable {
 		
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
+	
+	public List<Usuario> vendedores(){
+		return this.manager
+				.createQuery("from Usuario", Usuario.class)
+				.getResultList();
+	}
 }

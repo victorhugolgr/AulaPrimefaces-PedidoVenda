@@ -5,7 +5,7 @@
     <p:toolbar styleClass="toolbar-opcoes">
         <p:toolbarGroup>
             <p:button value="Novo" outcome="/pedidos/CadastroPedido"/>
-            <p:commandButton value="Salvar" update="@form"/>
+            <p:commandButton action="#{cadatroPedidoBean.salvar}" value="Salvar" update="@form"/>
         </p:toolbarGroup>
         
         <p:toolbarGroup align="right">
