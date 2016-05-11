@@ -5,16 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Novo Cliente</ui:define>
+	<ui:define name="titulo">#{cadastroClienteBean.title}</ui:define>
 
 	<ui:define name="corpo">
 		<f:metadata>
-			<f:viewParam value="#{cadastroClienteBean.cliente}" name="cliente"/>
+			<f:viewParam name="cliente" value="#{cadastroClienteBean.cliente}" />
 		</f:metadata>
 		<h:form id="frmCliente">
-			<h1>Novo Cliente</h1>
+			<h1>#{cadastroClienteBean.title}</h1>
 
-			<p:messages autoUpdate="true" closable="true" />
+			<p:messages closable="true" />
 			<p:toolbar styleClass="toolbar-opcoes">
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/cliente/CadastroCliente"
@@ -51,7 +51,7 @@
 
 			</p:panelGrid>
 		</h:form>
-		<h:form id="frmClienteEndereco">
+		<h:form id="frmEnderecoCliente">
 			<div style="margin-top: 20px">
 				<p:commandButton value="Adicionar Endereço"
 					onclick="PF('inclusaCliente').show()" />
@@ -82,7 +82,7 @@
 					</p:column>
 
 					<p:column style="width: 70px; text-align: center">
-						<p:commandButton icon="ui-icon-pencil" title="Editar" update=":frmClienteEndereco:clienteEnderecoDialog">
+						<p:commandButton icon="ui-icon-pencil" title="Editar">
 							<f:setPropertyActionListener value="#{endereco}"
 								target="#{cadastroClienteBean.endereco}" />
 						</p:commandButton>
@@ -97,7 +97,8 @@
 			</div>
 
 			<p:dialog header="Inclusão de Endereço" modal="true"
-				widgetVar="inclusaCliente" showEffect="Puff" hideEffect="Scale" id="clienteEnderecoDialog">
+				widgetVar="inclusaCliente" showEffect="Puff">
+				<p:messages widgetVar="msgEndereco" id="msgEnderecoId" />
 				<h:panelGroup>
 					<p:panelGrid columns="2" columnClasses="rotulo, campo">
 						<p:outputLabel value="Logradouro" for="logradouro" />
@@ -126,19 +127,27 @@
 							value="#{cadastroClienteBean.endereco.cidade}" />
 					</p:panelGrid>
 				</h:panelGroup>
-				<p:commandButton value="Incluir" type="button"
-					oncomplete="PF('inclusaoCliente').hide()"
-					action="#{cadastroClienteBean.salvarEndereco}"
-					update=":frmClienteEndereco" />
+				<p:commandButton value="Incluir"
+					action="#{cadastroClienteBean.salvarEndereco}" update="@form"
+					oncomplete="handleLoginRequest(xhr, status, args);" />
 			</p:dialog>
 
 			<p:confirmDialog header="Exclusão endereço"
 				message="Deseja excluir este endereço?" widgetVar="exclusaoEndereco">
 				<p:commandButton value="Sim" onclick="PF('exclusaoEndereco').hide()"
-					action="#{cadastroClienteBean.excluirEndereco}" />
+					action="#{cadastroClienteBean.excluirEndereco}" update="@form" />
 				<p:commandButton value="Não" onclick="PF('exclusaoEndereco').hide()" />
 			</p:confirmDialog>
+			<script type="text/javascript">
+		    function handleLoginRequest(xhr, status, args) {
+		        if(args.validationFailed) {
+		        	PF('inclusaCliente').show();
+		        }
+		        else {
+		            PF('inclusaCliente').hide();
+		        }
+		    }
+		</script>
 		</h:form>
 	</ui:define>
-
 </ui:composition>
