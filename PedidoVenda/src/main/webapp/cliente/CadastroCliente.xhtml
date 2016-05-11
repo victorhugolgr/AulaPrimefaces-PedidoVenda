@@ -8,6 +8,9 @@
 	<ui:define name="titulo">Novo Cliente</ui:define>
 
 	<ui:define name="corpo">
+		<f:metadata>
+			<f:viewParam value="#{cadastroClienteBean.cliente}" name="cliente"/>
+		</f:metadata>
 		<h:form id="frmCliente">
 			<h1>Novo Cliente</h1>
 
@@ -16,8 +19,8 @@
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/cliente/CadastroCliente"
 						icon="fa fa-plus" />
-					<p:commandButton value="Salvar" icon="fa fa-save"
-						update="@form" action="#{cadastroClienteBean.salvar}"/>
+					<p:commandButton value="Salvar" icon="fa fa-save" update="@form"
+						action="#{cadastroClienteBean.salvar}" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente"
@@ -47,8 +50,8 @@
 					value="#{cadastroClienteBean.cliente.email}" />
 
 			</p:panelGrid>
-			</h:form>
-			<h:form>
+		</h:form>
+		<h:form id="frmClienteEndereco">
 			<div style="margin-top: 20px">
 				<p:commandButton value="Adicionar Endereço"
 					onclick="PF('inclusaCliente').show()" />
@@ -79,16 +82,22 @@
 					</p:column>
 
 					<p:column style="width: 70px; text-align: center">
-						<p:commandButton icon="ui-icon-pencil" title="Editar" />
+						<p:commandButton icon="ui-icon-pencil" title="Editar" update=":frmClienteEndereco:clienteEnderecoDialog">
+							<f:setPropertyActionListener value="#{endereco}"
+								target="#{cadastroClienteBean.endereco}" />
+						</p:commandButton>
 						<p:commandButton icon="ui-icon-trash" title="Excluir"
-							onclick="PF('exclusaoEndereco').show()" />
+							onclick="PF('exclusaoEndereco').show()">
+							<f:setPropertyActionListener value="#{endereco}"
+								target="#{cadastroClienteBean.enderecoSelecionado}" />
+						</p:commandButton>
 					</p:column>
 
 				</p:dataTable>
 			</div>
 
 			<p:dialog header="Inclusão de Endereço" modal="true"
-				widgetVar="inclusaCliente" showEffect="Puff" hideEffect="Scale">
+				widgetVar="inclusaCliente" showEffect="Puff" hideEffect="Scale" id="clienteEnderecoDialog">
 				<h:panelGroup>
 					<p:panelGrid columns="2" columnClasses="rotulo, campo">
 						<p:outputLabel value="Logradouro" for="logradouro" />
@@ -118,12 +127,15 @@
 					</p:panelGrid>
 				</h:panelGroup>
 				<p:commandButton value="Incluir" type="button"
-					oncomplete="PF('inclusaoCliente').hide()" />
+					oncomplete="PF('inclusaoCliente').hide()"
+					action="#{cadastroClienteBean.salvarEndereco}"
+					update=":frmClienteEndereco" />
 			</p:dialog>
 
 			<p:confirmDialog header="Exclusão endereço"
 				message="Deseja excluir este endereço?" widgetVar="exclusaoEndereco">
-				<p:commandButton value="Sim" onclick="PF('exclusaoEndereco').hide()" />
+				<p:commandButton value="Sim" onclick="PF('exclusaoEndereco').hide()"
+					action="#{cadastroClienteBean.excluirEndereco}" />
 				<p:commandButton value="Não" onclick="PF('exclusaoEndereco').hide()" />
 			</p:confirmDialog>
 		</h:form>

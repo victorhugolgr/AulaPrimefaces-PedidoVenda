@@ -13,7 +13,8 @@
 
 			<p:toolbar style="toolbar-opcoes">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" />
+					<p:commandButton value="Pesquisar" action="#{pesquisaClienteBean.pesquisar}"
+						update="@form"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Novo" outcome="/cliente/CadastroCliente" />
@@ -47,7 +48,7 @@
 				</p:column>
 				
 				<p:column style="width: 100px; text-align: center">
-					<p:button icon="ui-icon-pencil" title="Editar">
+					<p:button icon="ui-icon-pencil" title="Editar" outcome="/cliente/CadastroCliente">
 						<f:param value="#{cliente.id}" name="cliente"/>
 					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir" onclick="PF('exclusaoCliente').show()">

@@ -39,6 +39,7 @@ public class PesquisaClienteBean implements Serializable{
 	
 	public void excluirCliente(){
 		clienteRepository.remove(clienteSelecionado);
+		clientesFiltrados.remove(clienteSelecionado);
 	}
 	
 	public List<Cliente> getClientesFiltrados() {
