@@ -7,7 +7,7 @@
 	<p:panelGrid columns="4" styleClass="painel-cadastro"
 		columnClasses="rotulo, campo, romtulo, campo">
 		<p:outputLabel value="Número" rendered="#{cadatroPedidoBean.pedido.existente}"/>
-		<h:outputText value="#{cadatroPedidoBean.pedido.id}" />
+		<h:outputText value="#{cadatroPedidoBean.pedido.id}" rendered="#{cadatroPedidoBean.pedido.existente}"/>
 
 		<p:outputLabel value="Data de Criação" rendered="#{cadatroPedidoBean.pedido.existente}"/>
 		<h:outputText value="#{cadatroPedidoBean.pedido.dataCriacao}" rendered="#{cadatroPedidoBean.pedido.existente}">
@@ -40,14 +40,16 @@
 
 		<p:outputLabel value="Valor do Frete" for="valorFrete" />
 		<p:inputText id="valorFrete" size="10" maxlength="10"
-			value="#{cadatroPedidoBean.pedido.valorFrete}" />
+			value="#{cadatroPedidoBean.pedido.valorFrete}" styleClass="moeda">
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+		</p:inputText>
 
 		<p:outputLabel value="Subtotal" style="font-weight: bold" />
 		<h:outputText value="R$ 0,00" style="font-weight: bold" id="subtotal" />
 
 		<p:outputLabel value="Valor de Desconto" for="valorDesconto" />
 		<p:inputText id="valorDesconto" size="10"
-			maxlength="10" value="#{cadatroPedidoBean.pedido.valorDesconto}">
+			maxlength="10" value="#{cadatroPedidoBean.pedido.valorDesconto}" styleClass="moeda">
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 		</p:inputText>
 

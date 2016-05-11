@@ -4,10 +4,14 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
+    
+    <f:metadata>
+    	<f:event listener="#{cadatroPedidoBean.init}" type="preRenderView"/>
+    </f:metadata>
+    
     <ui:define name="titulo">
         Novo Pedido
     </ui:define>
-
     <ui:define name="corpo">
         <h:form>
             <h1>Novo Pedido</h1>

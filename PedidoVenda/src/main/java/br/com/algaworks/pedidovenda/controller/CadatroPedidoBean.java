@@ -34,7 +34,6 @@ public class CadatroPedidoBean implements Serializable {
 	private Pedido pedido;
 	private List<Usuario> vendedores;
 
-	@PostConstruct
 	public void init(){
 		if(FacesUtil.isNotPostBack()){
 			vendedores = usuarioRepository.vendedores();
