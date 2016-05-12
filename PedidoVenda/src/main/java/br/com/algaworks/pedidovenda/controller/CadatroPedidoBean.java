@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,9 +34,11 @@ public class CadatroPedidoBean implements Serializable {
 	private Pedido pedido;
 	private List<Usuario> vendedores;
 
+	@PostConstruct
 	public void init(){
 		if(FacesUtil.isNotPostBack()){
 			vendedores = usuarioRepository.vendedores();
+			this.recalcularPedido();
 		}
 	}
 	
@@ -57,7 +59,13 @@ public class CadatroPedidoBean implements Serializable {
 	public List<Cliente> completarCliente(String nome){
 		return clienteRepository.porNome(nome);
 	}
-
+	
+	public void recalcularPedido(){		
+		if(this.pedido != null){
+			this.pedido.recalcularValorTotal();
+		}
+	}
+	
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -76,6 +84,10 @@ public class CadatroPedidoBean implements Serializable {
 
 	public void setVendedores(List<Usuario> vendedores) {
 		this.vendedores = vendedores;
+	}
+	
+	public boolean isEditando(){
+		return this.pedido.getId() != null;
 	}
 
 }

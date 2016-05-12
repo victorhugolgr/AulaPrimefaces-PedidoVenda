@@ -85,8 +85,10 @@
 					<h:outputText value="#{pedido.status.descricao}" />
 				</p:column>
 
-				<p:column style="text-align: center; width: 60px">
-					<p:button icon="ui-icon-pencil" title="Editar" />
+				<p:column style="text-align: center; width: 80px">
+					<p:button icon="ui-icon-pencil" title="Editar" outcome="/pedidos/CadastroPedido">
+						<f:param name="pedido" value="#{pedido.id}"/>
+					</p:button>
 					<p:commandButton icon="fa fa-trash" title="Excluir" />
 				</p:column>
 

@@ -23,6 +23,10 @@ public class PedidoRepository implements Serializable{
 	@Inject
 	private EntityManager manager;
 	
+	public Pedido porId(Long id){
+		return manager.find(Pedido.class, id);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Pedido> filtrados(PedidoFilter filtro){
 		Session session = this.manager.unwrap(Session.class);

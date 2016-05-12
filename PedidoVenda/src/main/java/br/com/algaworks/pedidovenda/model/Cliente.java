@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -43,7 +44,7 @@ public class Cliente implements Serializable {
 	@Column(nullable=false, length=10)
 	private TipoPessoa tipo;
 	
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	public Long getId() {

@@ -12,6 +12,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -52,7 +53,7 @@ public class Pedido implements Serializable {
 	}
 
 	@NotNull
-	@Column(name="data_criacao", nullable= false)
+	@Column(name = "data_criacao", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDataCriacao() {
 		return dataCriacao;
@@ -72,7 +73,7 @@ public class Pedido implements Serializable {
 	}
 
 	@NotNull
-	@Column(name="data_entrega", nullable= false)
+	@Column(name = "data_entrega", nullable = false)
 	@Temporal(TemporalType.DATE)
 	public Date getDataEntrega() {
 		return dataEntrega;
@@ -83,7 +84,7 @@ public class Pedido implements Serializable {
 	}
 
 	@NotNull
-	@Column(name = "valor_frete", nullable= false, precision = 10, scale = 2)
+	@Column(name = "valor_frete", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorFrete() {
 		return valorFrete;
 	}
@@ -93,7 +94,7 @@ public class Pedido implements Serializable {
 	}
 
 	@NotNull
-	@Column(name = "valor_desconto", nullable= false, precision = 10, scale = 2)	
+	@Column(name = "valor_desconto", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorDesconto() {
 		return valorDesconto;
 	}
@@ -103,7 +104,7 @@ public class Pedido implements Serializable {
 	}
 
 	@NotNull
-	@Column(name = "valor_total", nullable= false, precision = 10, scale = 2)
+	@Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
@@ -125,7 +126,7 @@ public class Pedido implements Serializable {
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name="forma_pagamento", nullable = false, length = 20 )
+	@Column(name = "forma_pagamento", nullable = false, length = 20)
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
@@ -136,7 +137,7 @@ public class Pedido implements Serializable {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name="vendedor_id", nullable=false)
+	@JoinColumn(name = "vendedor_id", nullable = false)
 	public Usuario getVendedor() {
 		return vendedor;
 	}
@@ -147,7 +148,7 @@ public class Pedido implements Serializable {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name= "cliente_id", nullable=false)
+	@JoinColumn(name = "cliente_id", nullable = false)
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -156,7 +157,7 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 
-	@Embedded//<- Não mapeia esta entidade no banco
+	@Embedded // <- Não mapeia esta entidade no banco
 	public EnderecoEntrega getEnderecoEntrega() {
 		return enderecoEntrega;
 	}
@@ -165,7 +166,7 @@ public class Pedido implements Serializable {
 		this.enderecoEntrega = enderecoEntrega;
 	}
 
-	@OneToMany(mappedBy="pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	public List<ItemPedido> getItens() {
 		return itens;
 	}
@@ -173,14 +174,14 @@ public class Pedido implements Serializable {
 	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 	}
-	
+
 	@Transient
-	public boolean isNovo(){
+	public boolean isNovo() {
 		return getId() == null;
 	}
-	
+
 	@Transient
-	public boolean isExistente(){
+	public boolean isExistente() {
 		return !isNovo();
 	}
 
@@ -207,6 +208,25 @@ public class Pedido implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Transient
+	public BigDecimal getValorSubtotal(){
+		return this.getValorTotal().subtract(this.getValorFrete()).add(this.getValorDesconto());
+	}
+	
+	public void recalcularValorTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+
+		total = total.add(this.getValorFrete()).subtract(this.getValorDesconto());
+		
+		for (ItemPedido itemPedido : itens) {
+			if (itemPedido.getProduto() != null && itemPedido.getProduto().getId() != null) {
+				total = total.add(itemPedido.getValorTotal());
+			}
+		}
+		
+		this.setValorTotal(total);
 	}
 
 }
