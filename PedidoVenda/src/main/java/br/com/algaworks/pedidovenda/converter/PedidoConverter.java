@@ -28,6 +28,10 @@ public class PedidoConverter implements Converter {
 			Long id = new Long(value);
 			retorno = pedidoRepository.porId(id);
 		}
+		
+		if(retorno == null){
+			retorno = new Pedido();
+		}
 
 		return retorno;
 	}

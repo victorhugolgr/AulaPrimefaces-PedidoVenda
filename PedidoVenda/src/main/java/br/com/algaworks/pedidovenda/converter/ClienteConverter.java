@@ -1,5 +1,7 @@
 package br.com.algaworks.pedidovenda.converter;
 
+import java.util.ArrayList;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -22,6 +24,12 @@ public class ClienteConverter implements Converter {
 		if (value != null) {
 			Long id = new Long(value);
 			retorno = clienteRepository.porId(id);
+		}
+		
+		if(retorno == null){
+			retorno = new Cliente();
+		} else if(retorno.getEnderecos() == null){
+			retorno.setEnderecos(new ArrayList<>());
 		}
 
 		return retorno;

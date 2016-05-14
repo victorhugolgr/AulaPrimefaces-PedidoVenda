@@ -25,6 +25,10 @@ public class ProdutoConverter implements Converter {
 			Long id = new Long(value);
 			retorno = produtoRepository.porId(id);
 		}
+		
+		if(retorno == null){
+			retorno = new Produto();
+		}
 
 		return retorno;
 	}
