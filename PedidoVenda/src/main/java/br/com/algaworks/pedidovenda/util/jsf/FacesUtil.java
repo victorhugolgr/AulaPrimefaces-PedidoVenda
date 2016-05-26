@@ -22,5 +22,9 @@ public class FacesUtil {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
 	}
+	
+	public static String getParamentro(String nome){
+		return FacesContext.getCurrentInstance().getExternalContext().getInitParameter(nome);
+	}
 
 }

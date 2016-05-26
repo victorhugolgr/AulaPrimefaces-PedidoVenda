@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import br.com.algaworks.pedidovenda.model.Categoria;
 import br.com.algaworks.pedidovenda.model.Produto;
 import br.com.algaworks.pedidovenda.repository.CategoriaRepository;
+import br.com.algaworks.pedidovenda.repository.ProdutoRepository;
 import br.com.algaworks.pedidovenda.service.CadastroProdutoService;
 import br.com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
@@ -24,6 +26,9 @@ public class CadastroProdutoBean implements Serializable {
 	@Inject
 	private CategoriaRepository categoriaRepository;
 
+	@Inject
+	private ProdutoRepository produtoRepository; 
+	
 	@Inject
 	private CadastroProdutoService cadastroProdutoService;
 
@@ -38,8 +43,16 @@ public class CadastroProdutoBean implements Serializable {
 		limpar();
 	}
 
+	@PostConstruct
 	public void inicializar() {
 
+		String paramentroId = FacesUtil.getParamentro("produto");
+		
+		
+		if(paramentroId != null){
+			produto = produtoRepository.porId(new Long(paramentroId));
+		}
+		
 		if (produto == null) {
 			limpar();
 		}
