@@ -24,7 +24,7 @@ public class FacesUtil {
 	}
 	
 	public static String getParamentro(String nome){
-		return FacesContext.getCurrentInstance().getExternalContext().getInitParameter(nome);
+		return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap() .get(nome);
 	}
 
 }

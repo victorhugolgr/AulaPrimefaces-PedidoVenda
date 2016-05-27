@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa Categoria</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Pesquisa Categoria</h1>
+		
+		<p:messages autoUpdate="true"/>
+		
+		<p:toolbar>
+			<p:toolbarGroup>
+				<p:commandButton value="Pesquisar" action="#{pesquisaCategoriaBean.pesquisar()}" update="categoriasTable"/>
+			</p:toolbarGroup>
+			<p:toolbarGroup align="right">
+				<p:button value="Novo" outcome="/categoria/CadastroCategoria"/>
+			</p:toolbarGroup>
+		</p:toolbar>
+		
+		<p:panelGrid columns="2" tyleClass="painel-cadastro" columnClasses="rotulo, campo">
+			<p:outputLabel id="descricao" value="Descrição"/>
+			<p:inputText for="descricao" value="#{pesquisaCategoriaBean.descricaoCategoria}"/>
+		</p:panelGrid>
+		
+		<p:dataTable id="categoriasTable" value="#{pesquisaCategoriaBean.categorias}" var="categoria"
+			style="margin-top:20px" emptyMessage="Nenhuma categoria encontrada" rows="20" paginator="true" paginatorAlwaysVisible="false"
+			paginatorPosition="botton">
+			
+			<p:column headerText="Descrição">
+				<h:outputText value="#{categoria.descricao}"/>
+			</p:column>
+			
+			<p:column headerText="Categoria Raíz">
+				<h:outputText value="#{categoria.categoriaPai.descricao}"/>
+			</p:column>
+			
+			<p:column style="width:100px; text-aligh:center">
+				<p:button icon="ui-icon-pencil" title="Editar" outcome="/categoria/CadastroCategoria">
+					<f:param name="categoria" value="#{categoria.id}"/>
+				</p:button>
+				
+				<p:commandButton action="#{pesquisaCategoriaBean.excluir}" icon="ui-icon-trash" update="categoriasTable">
+					<f:setPropertyActionListener value="#{categoria}" target="#{pesquisaCategoriaBean.categoriaSelecionada}" />
+				</p:commandButton>
+			</p:column>
+			
+		</p:dataTable>
+		
+	</ui:define>
+
+</ui:composition>
