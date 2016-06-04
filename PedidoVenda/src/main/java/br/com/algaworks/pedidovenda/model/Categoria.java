@@ -28,7 +28,7 @@ public class Categoria implements Serializable {
 	@JoinColumn(name="categoria_pai_id")
 	private Categoria categoriaPai;
 	
-	@OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.MERGE)
 	private List<Categoria> subCategorias = new ArrayList<>();
 
 	public Long getId() {
