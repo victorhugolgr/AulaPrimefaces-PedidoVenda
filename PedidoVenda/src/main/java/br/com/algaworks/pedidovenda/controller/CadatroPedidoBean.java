@@ -60,9 +60,15 @@ public class CadatroPedidoBean implements Serializable {
 	}
 
 	public void salvar(){
-		this.pedido = this.cadastroPedidoService.salvar(pedido);
+		this.pedido.removerItemVazio();
 		
-		FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
+		try{
+			this.pedido = this.cadastroPedidoService.salvar(this.pedido);
+			FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
+		}finally{
+			this.pedido.adicionarItemVazio();
+		}		
+		
 	}
 	private void limpar() {
 		pedido = new Pedido();

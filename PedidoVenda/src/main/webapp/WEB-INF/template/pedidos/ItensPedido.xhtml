@@ -20,7 +20,7 @@
             <p:autoComplete styleClass="produto-tabela" value="#{cadatroPedidoBean.produtoLinhaEditavel}"
             	completeMethod="#{cadatroPedidoBean.completarProduto}"
             	var="produto" itemLabel="#{produto.nome}" itemValue="#{produto}"
-            	forceSelection="true" required="#{not item.produtoAssociado}">
+            	forceSelection="true" required="#{not item.produtoAssociado}" rendered="#{not item.produtoAssociado}">
             	<p:ajax event="itemSelect" update="tabelaItens :frmCadastro:totalPedido :frmCadastro:subtotal"
             		listener="#{cadatroPedidoBean.carregarProdutoLinhaEditavel}"/>
             </p:autoComplete>
