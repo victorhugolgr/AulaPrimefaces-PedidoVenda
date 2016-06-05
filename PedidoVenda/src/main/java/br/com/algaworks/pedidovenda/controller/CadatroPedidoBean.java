@@ -121,6 +121,18 @@ public class CadatroPedidoBean implements Serializable {
 		return clienteRepository.porNome(nome);
 	}
 	
+	public void atualizarQuantidade(ItemPedido item, int linha){
+		if(item.getQuantidade() < 1){
+			if(linha == 0){
+				item.setQuantidade(1);
+			}else{
+				this.pedido.getItens().remove(linha);
+			}
+		}
+			
+		this.pedido.recalcularValorTotal();
+	}
+	
 	public void recalcularPedido(){		
 		if(this.pedido != null){
 			this.pedido.recalcularValorTotal();

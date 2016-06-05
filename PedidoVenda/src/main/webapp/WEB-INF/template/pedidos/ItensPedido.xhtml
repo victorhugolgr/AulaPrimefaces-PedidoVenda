@@ -4,7 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     
-    <p:dataTable value="#{cadatroPedidoBean.pedido.itens}" var="item" id="tabelaItens">
+    <p:dataTable value="#{cadatroPedidoBean.pedido.itens}" var="item" id="tabelaItens" rowIndexVar="linha">
         <p:column headerText="SKU" style="text-align: center; width: 100px">
         	
         	<h:outputText value="#{item.produto.sku}" rendered="#{item.produtoAssociado}"/>
@@ -30,9 +30,14 @@
             	<f:convertNumber type="currency"/>
             </h:outputText>
         </p:column>
+        
         <p:column headerText="Quantidade" style="text-align: center; width: 100px">
-            <p:inputText size="8" value="#{item.quantidade}"/>
+            <p:inputText size="8" value="#{item.quantidade}">
+            	<p:ajax event="change" process="@this" update="tabelaItens :frmCadastroPedido:totalPedido :frmCadastro:subtotal"
+            	listener="#{cadatroPedidoBean.atualizarQuantidade(item,linha)}"/>
+            </p:inputText>
         </p:column>
+        
         <p:column headerText="Estoque" style="text-align: center; width: 100px">
             <h:outputText value="#{item.produto.quantidadeEstoque}"/>
         </p:column>
