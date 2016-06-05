@@ -38,57 +38,59 @@ public class CadatroPedidoBean implements Serializable {
 	private CadastroPedidoService cadastroPedidoService;
 	@Inject
 	private ProdutoRepository produtoRepository;
-	
+
 	private Pedido pedido;
 	private List<Usuario> vendedores;
 	private Produto produtoLinhaEditavel;
 	private String sku;
+	private boolean existeItem;
 
 	@PostConstruct
-	public void init(){
-		if(FacesUtil.isNotPostBack()){
+	public void init() {
+		if (FacesUtil.isNotPostBack()) {
 			vendedores = usuarioRepository.vendedores();
-			
+
 			this.pedido.adicionarItemVazio();
-			
+
 			this.recalcularPedido();
 		}
 	}
-	
+
 	public CadatroPedidoBean() {
 		limpar();
+	}	
+		
+	public void salvar() {
+		this.pedido.removerItemVazio();
+
+		try {
+			this.pedido = this.cadastroPedidoService.salvar(pedido);
+			FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
+		} finally {
+			this.pedido.adicionarItemVazio();
+		}
 	}
 
-	public void salvar(){
-		this.pedido.removerItemVazio();
-		
-		try{
-			this.pedido = this.cadastroPedidoService.salvar(this.pedido);
-			FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
-		}finally{
-			this.pedido.adicionarItemVazio();
-		}		
-		
-	}
 	private void limpar() {
 		pedido = new Pedido();
 		pedido.setEnderecoEntrega(new EnderecoEntrega());
+		System.out.println("Limpo!");
 	}
-	
-	public List<Produto> completarProduto(String nome){
+
+	public List<Produto> completarProduto(String nome) {
 		return this.produtoRepository.porNome(nome);
 	}
-	
-	public void carregarProdutoLinhaEditavel(){
+
+	public void carregarProdutoLinhaEditavel() {
 		ItemPedido item = this.pedido.getItens().get(0);
-		
-		if(this.produtoLinhaEditavel != null){
-			if(this.existeItemComProduto(this.produtoLinhaEditavel)){
+
+		if (this.produtoLinhaEditavel != null) {
+			if (this.existeItemComProduto(this.produtoLinhaEditavel)) {
 				FacesUtil.addErrorMessage("Já existe um item no pedido com o produto informado.");
-			}else {				
+			} else {
 				item.setProduto(produtoLinhaEditavel);
 				item.setValorUnitario(this.produtoLinhaEditavel.getValorUnitario());
-				
+
 				this.pedido.adicionarItemVazio();
 				this.produtoLinhaEditavel = null;
 				this.sku = null;
@@ -96,21 +98,21 @@ public class CadatroPedidoBean implements Serializable {
 			}
 		}
 	}
-	
+
 	private boolean existeItemComProduto(Produto produto) {
-		boolean existeItem = false;
-		
-		for(ItemPedido item : this.getPedido().getItens()){
-			if(produto.equals(item.getProduto())){
+		existeItem = false;
+
+		for (ItemPedido item : this.getPedido().getItens()) {
+			if (produto.equals(item.getProduto())) {
 				existeItem = true;
 				break;
 			}
 		}
-		
+
 		return false;
 	}
 
-	public void carregarProdutoPorSku(){
+	public void carregarProdutoPorSku() {
 		if (StringUtils.isNotEmpty(this.sku)) {
 			this.produtoLinhaEditavel = this.produtoRepository.proSku(sku);
 			this.carregarProdutoLinhaEditavel();
@@ -133,12 +135,13 @@ public class CadatroPedidoBean implements Serializable {
 		this.pedido.recalcularValorTotal();
 	}
 	
-	public void recalcularPedido(){		
-		if(this.pedido != null){
+
+	public void recalcularPedido() {
+		if (this.pedido != null) {
 			this.pedido.recalcularValorTotal();
 		}
 	}
-	
+
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -146,8 +149,8 @@ public class CadatroPedidoBean implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-	
-	public FormaPagamento[] getFormasPagamento(){
+
+	public FormaPagamento[] getFormasPagamento() {
 		return FormaPagamento.values();
 	}
 
@@ -158,8 +161,8 @@ public class CadatroPedidoBean implements Serializable {
 	public void setVendedores(List<Usuario> vendedores) {
 		this.vendedores = vendedores;
 	}
-	
-	public boolean isEditando(){
+
+	public boolean isEditando() {
 		return this.pedido.getId() != null;
 	}
 
@@ -170,7 +173,7 @@ public class CadatroPedidoBean implements Serializable {
 	public void setProdutoLinhaEditavel(Produto produtoLinhaEditavel) {
 		this.produtoLinhaEditavel = produtoLinhaEditavel;
 	}
-	
+
 	@SKU
 	public String getSku() {
 		return sku;

@@ -255,7 +255,7 @@ public class Pedido implements Serializable {
 	}
 
 	public boolean isValorTotalNegativo() {
-		return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
+		return getValorTotal().compareTo(BigDecimal.ZERO) < 0;
 	}
 
 }
