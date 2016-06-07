@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import br.com.algaworks.pedidovenda.model.Pedido;
 import br.com.algaworks.pedidovenda.model.StatusPedido;
 import br.com.algaworks.pedidovenda.repository.PedidoRepository;
+import br.com.algaworks.pedidovenda.util.jpa.Transactional;
 
 public class EmissaoPedidoService implements Serializable {
 
@@ -21,6 +22,7 @@ public class EmissaoPedidoService implements Serializable {
 	@Inject
 	private EstoqueService estoqueService;
 	
+	@Transactional
 	public Pedido emitir(Pedido pedido) {
 		pedido = this.cadastroPedidoService.salvar(pedido);
 
