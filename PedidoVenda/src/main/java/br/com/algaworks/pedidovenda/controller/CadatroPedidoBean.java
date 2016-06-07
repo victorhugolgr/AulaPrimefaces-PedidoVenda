@@ -18,6 +18,7 @@ import br.com.algaworks.pedidovenda.model.Pedido;
 import br.com.algaworks.pedidovenda.model.Produto;
 import br.com.algaworks.pedidovenda.model.Usuario;
 import br.com.algaworks.pedidovenda.repository.ClienteRepository;
+import br.com.algaworks.pedidovenda.repository.PedidoRepository;
 import br.com.algaworks.pedidovenda.repository.ProdutoRepository;
 import br.com.algaworks.pedidovenda.repository.UsuarioRepository;
 import br.com.algaworks.pedidovenda.service.CadastroPedidoService;
@@ -35,6 +36,8 @@ public class CadatroPedidoBean implements Serializable {
 	@Inject
 	private ClienteRepository clienteRepository;
 	@Inject
+	private PedidoRepository pedidoRepository;
+	@Inject
 	private CadastroPedidoService cadastroPedidoService;
 	@Inject
 	private ProdutoRepository produtoRepository;
@@ -47,6 +50,13 @@ public class CadatroPedidoBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		String parametroID = FacesUtil.getParamentro("pedido");
+		
+		
+		if(parametroID != null){
+			pedido = pedidoRepository.porId(new Long(parametroID));
+		}
+		
 		if (FacesUtil.isNotPostBack()) {
 			vendedores = usuarioRepository.vendedores();
 

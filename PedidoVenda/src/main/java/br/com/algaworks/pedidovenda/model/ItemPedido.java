@@ -32,7 +32,7 @@ public class ItemPedido implements Serializable {
 		this.id = id;
 	}
 
-	@Column(nullable=false,length=3)
+	@Column(nullable = false, length = 3)
 	public Integer getQuantidade() {
 		return quantidade;
 	}
@@ -41,7 +41,7 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	@Column(name="valor_unitario", nullable = false, precision = 10, scale= 2)
+	@Column(name = "valor_unitario", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
@@ -51,7 +51,7 @@ public class ItemPedido implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="produto_id", nullable =false)
+	@JoinColumn(name = "produto_id", nullable = false)
 	public Produto getProduto() {
 		return produto;
 	}
@@ -61,7 +61,7 @@ public class ItemPedido implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="pedido_id", nullable = false)
+	@JoinColumn(name = "pedido_id", nullable = false)
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -69,9 +69,9 @@ public class ItemPedido implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-	
+
 	@Transient
-	public boolean isProdutoAssociado(){
+	public boolean isProdutoAssociado() {
 		return this.getProduto() != null && this.getProduto().getId() != null;
 	}
 
@@ -103,6 +103,17 @@ public class ItemPedido implements Serializable {
 	@Transient
 	public BigDecimal getValorTotal() {
 		return this.getValorUnitario().multiply(new BigDecimal(this.getQuantidade()));
+	}
+
+	@Transient
+	public boolean isEstoqueSuficiente() {
+		return this.getPedido().isEmitido() || this.getProduto().getId() == null 
+				|| this.getProduto().getQuantidadeEstoque() >= this.getQuantidade(); 
+	}
+
+	@Transient
+	public boolean isEstoqueInsuficiente() {
+		return !this.isEstoqueSuficiente();
 	}
 
 }
