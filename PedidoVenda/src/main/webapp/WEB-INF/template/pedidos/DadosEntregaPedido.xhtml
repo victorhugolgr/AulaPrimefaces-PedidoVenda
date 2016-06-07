@@ -1,33 +1,48 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <p:panelGrid columns="4" style="width: 100%" columnClasses="rotulo,campo,rotulo, campo">
-        <p:outputLabel value="Data de Entrega" for="dataEntrega"/>
-        <p:calendar id="dataEntrega" size="10" pattern="dd/MM/yyyy" value="#{cadatroPedidoBean.pedido.dataEntrega}"/>
-        
-        <p:spacer/>
-        <p:spacer/>
-        
-        <p:outputLabel value="Logradouro" for="entregaLogradouro"/>
-        <p:inputText id="entregaLogradouro" size="50" value="#{cadatroPedidoBean.pedido.enderecoEntrega.logradouro}"/>
-        
-        <p:outputLabel value="Número" for="entregaNumero"/>
-        <p:inputText id="entregaNumero" size="5" value="#{cadatroPedidoBean.pedido.enderecoEntrega.numero}"/>
-        
-        <p:outputLabel value="Complemento" for="entregaComplemento"/>
-        <p:inputText id="entregaComplemento" size="50" value="#{cadatroPedidoBean.pedido.enderecoEntrega.complemento}"/>
-        
-        <p:outputLabel value="Cidade" for="entregaCidade"/>
-        <p:inputText id="entregaCidade" size="20" value="#{cadatroPedidoBean.pedido.enderecoEntrega.cidade}"/>
-        
-        <p:outputLabel value="Estado" for="entregaEstado"/>
-        <p:inputText id="entregaEstado" size="20" value="#{cadatroPedidoBean.pedido.enderecoEntrega.uf}"/>
-        
-        <p:outputLabel value="CEP" for="entregaCEP"/>
-        <p:inputText id="entregaCEP" size="10" value="#{cadatroPedidoBean.pedido.enderecoEntrega.cep}"/>
-    </p:panelGrid>
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<p:panelGrid columns="4" style="width: 100%"
+		columnClasses="rotulo,campo,rotulo, campo">
+		<p:outputLabel value="Data de Entrega" for="dataEntrega" />
+		<p:calendar id="dataEntrega" size="10" pattern="dd/MM/yyyy"
+			value="#{cadatroPedidoBean.pedido.dataEntrega}" 
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}"/>
+
+		<p:spacer />
+		<p:spacer />
+
+		<p:outputLabel value="Logradouro" for="entregaLogradouro" />
+		<p:inputText id="entregaLogradouro" size="50"
+			value="#{cadatroPedidoBean.pedido.enderecoEntrega.logradouro}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+
+		<p:outputLabel value="Número" for="entregaNumero" />
+		<p:inputText id="entregaNumero" size="5"
+			value="#{cadatroPedidoBean.pedido.enderecoEntrega.numero}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+
+		<p:outputLabel value="Complemento" for="entregaComplemento" />
+		<p:inputText id="entregaComplemento" size="50"
+			value="#{cadatroPedidoBean.pedido.enderecoEntrega.complemento}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+
+		<p:outputLabel value="Cidade" for="entregaCidade" />
+		<p:inputText id="entregaCidade" size="20"
+			value="#{cadatroPedidoBean.pedido.enderecoEntrega.cidade}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+
+		<p:outputLabel value="Estado" for="entregaEstado" />
+		<p:inputText id="entregaEstado" size="20"
+			value="#{cadatroPedidoBean.pedido.enderecoEntrega.uf}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+
+		<p:outputLabel value="CEP" for="entregaCEP" />
+		<p:inputText id="entregaCEP" size="10"
+			value="#{cadatroPedidoBean.pedido.enderecoEntrega.cep}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+	</p:panelGrid>
 
 </ui:composition>

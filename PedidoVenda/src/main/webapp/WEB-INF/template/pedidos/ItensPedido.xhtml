@@ -45,7 +45,8 @@
 
 		<p:column headerText="Quantidade"
 			style="text-align: center; width: 100px">
-			<p:inputText size="8" value="#{item.quantidade}">
+			<p:inputText size="8" value="#{item.quantidade}"
+				disabled="#{cadatroPedidoBean.pedido.naoAlteravel}">
 				<p:ajax event="change" process="@this"
 					update="tabelaItens :frmCadastro:totalPedido :frmCadastro:subtotal"
 					listener="#{cadatroPedidoBean.atualizarQuantidade(item,linha)}" />
@@ -57,8 +58,8 @@
 			<h:outputText value="#{item.produto.quantidadeEstoque}"
 				style="#{item.estoqueInsuficiente ? 'color:red' : ''}" />
 			<h:graphicImage value="" library="images" name="alerta.png"
-				style="vertical-align:botton; margin-left: 15px;"
-				id="semEstoque" rendered="#{item.estoqueInsuficiente}" />
+				style="vertical-align:botton; margin-left: 15px;" id="semEstoque"
+				rendered="#{item.estoqueInsuficiente}" />
 
 			<p:tooltip for="semEstoque" value="Estoque Insuficiente"
 				rendered="#{item.estoqueInsuficiente}" />

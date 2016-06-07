@@ -23,22 +23,25 @@
 
 		<p:outputLabel value="Vendedor" for="vendedor" />
 		<p:selectOneMenu id="vendedor"
-			value="#{cadatroPedidoBean.pedido.vendedor}">
+			value="#{cadatroPedidoBean.pedido.vendedor}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}">
 			<f:selectItem itemLabel="-Selecione-" />
 			<f:selectItems value="#{cadatroPedidoBean.vendedores}" var="vendedor"
 				itemLabel="#{vendedor.nome}" itemValue="#{vendedor}" />
 		</p:selectOneMenu>
 
-		<p:outputLabel value="Cliente" for="cliente" />
+		<p:outputLabel value="Cliente" for="cliente"/>
 		<p:autoComplete id="cliente" size="40" dropdown="true"
 			value="#{cadatroPedidoBean.pedido.cliente}"
 			completeMethod="#{cadatroPedidoBean.completarCliente}" var="cliente"
 			itemLabel="#{cliente.nome}" itemValue="#{cliente}"
-			forceSelection="true" />
+			forceSelection="true" 
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}"/>
 
 		<p:outputLabel value="Forma de Pagamento" for="formaPagamento" />
 		<p:selectOneMenu id="formaPagamento"
-			value="#{cadatroPedidoBean.pedido.formaPagamento}">
+			value="#{cadatroPedidoBean.pedido.formaPagamento}"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}">
 			<f:selectItem itemLabel="-Selecione-" />
 			<f:selectItems value="#{cadatroPedidoBean.formasPagamento}"
 				var="formaPagamento" itemLabel="#{formaPagamento.descricao}"
@@ -47,7 +50,8 @@
 
 		<p:outputLabel value="Valor do Frete" for="valorFrete" />
 		<p:inputText id="valorFrete" size="10" maxlength="10"
-			value="#{cadatroPedidoBean.pedido.valorFrete}" styleClass="moeda">
+			value="#{cadatroPedidoBean.pedido.valorFrete}" styleClass="moeda"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}">
 			<p:ajax event="change" update="totalPedido"
 				listener="#{cadatroPedidoBean.recalcularPedido}" />
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
@@ -61,7 +65,8 @@
 
 		<p:outputLabel value="Valor de Desconto" for="valorDesconto" />
 		<p:inputText id="valorDesconto" size="10" maxlength="10"
-			value="#{cadatroPedidoBean.pedido.valorDesconto}" styleClass="moeda">
+			value="#{cadatroPedidoBean.pedido.valorDesconto}" styleClass="moeda"
+			disabled="#{cadatroPedidoBean.pedido.naoAlteravel}">
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 
 			<p:ajax event="change" process="@this" update="totalPedido"
