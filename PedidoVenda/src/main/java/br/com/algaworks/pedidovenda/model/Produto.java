@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.com.algaworks.pedidovenda.service.NegocioException;
 import br.com.algaworks.pedidovenda.validation.SKU;
 
 @Entity
@@ -120,6 +121,16 @@ public class Produto implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public void baixarEstoque(Integer quantidade) {
+		int novaQuantidade = this.getQuantidadeEstoque() - quantidadeEstoque;
+		
+		if(novaQuantidade < 0){
+			throw new NegocioException("Não há disponibilidade no estoque de " + quantidade
+										+ "itens do produto " + this.getSku());
+		}
+		this.setQuantidadeEstoque(novaQuantidade);
 	}
 
 }
