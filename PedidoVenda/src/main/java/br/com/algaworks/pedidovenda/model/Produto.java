@@ -124,7 +124,7 @@ public class Produto implements Serializable {
 	}
 
 	public void baixarEstoque(Integer quantidade) {
-		int novaQuantidade = this.getQuantidadeEstoque() - quantidadeEstoque;
+		int novaQuantidade = this.getQuantidadeEstoque() - quantidade;
 		
 		if(novaQuantidade < 0){
 			throw new NegocioException("Não há disponibilidade no estoque de " + quantidade
