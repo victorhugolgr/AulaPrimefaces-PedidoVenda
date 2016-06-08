@@ -1,29 +1,31 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-    <p:toolbar styleClass="toolbar-opcoes">
-        <p:toolbarGroup>
-            <p:button value="Novo" outcome="/pedidos/CadastroPedido"/>
-            <p:commandButton action="#{cadatroPedidoBean.salvar}" value="Salvar" update="@form"
-            	oncomplete="configurarMoeda()"
-            	disabled="#{cadatroPedidoBean.pedido.naoAlteravel}"/>
-        </p:toolbarGroup>
-        
-        <p:toolbarGroup align="right">
-            
-            <p:commandButton value="Emitir" action="#{emissaoPedidoBean.emitirPedido}"
-            	process="@form" update="@form"
-            	disabled="#{cadatroPedidoBean.pedido.naoEmissivel}"/>
-            <p:commandButton value="Cancelar" action="#{cancelamentoPedidoBean.cancelarPedido}"
-            	process="@this" update="@form"
-            	disabled="#{cadatroPedidoBean.pedido.naoCancelavel}"/>
-            <p:commandButton value="Enviar por E-mail"/>
-            
-            <p:separator/>
-            
-            <p:button value="Pesquisar" outcome="/pedidos/PesquisaPedidos"/>
-        </p:toolbarGroup>
-    </p:toolbar>
+	<p:toolbar styleClass="toolbar-opcoes">
+		<p:toolbarGroup>
+			<p:button value="Novo" outcome="/pedidos/CadastroPedido" />
+			<p:commandButton action="#{cadatroPedidoBean.salvar}" value="Salvar"
+				update="@form" oncomplete="configurarMoeda()"
+				disabled="#{cadatroPedidoBean.pedido.naoAlteravel}" />
+		</p:toolbarGroup>
+
+		<p:toolbarGroup align="right">
+
+			<p:commandButton value="Emitir"
+				action="#{emissaoPedidoBean.emitirPedido}" process="@form"
+				update="@form" disabled="#{cadatroPedidoBean.pedido.naoEmissivel}" />
+			<p:commandButton value="Cancelar"
+				action="#{cancelamentoPedidoBean.cancelarPedido}" process="@this"
+				update="@form" disabled="#{cadatroPedidoBean.pedido.naoCancelavel}" />
+			<p:commandButton value="Enviar por E-mail"
+				action="#{envioPedidoEmailBean.enviarPedido}" process="@this"
+				disabled="#{cadatroPedidoBean.pedido.naoEnviavelPorEmail}" />
+
+			<p:separator />
+
+			<p:button value="Pesquisar" outcome="/pedidos/PesquisaPedidos" />
+		</p:toolbarGroup>
+	</p:toolbar>
 
 </ui:composition>

@@ -248,8 +248,8 @@ public class Pedido implements Serializable {
 
 	public void removerItemVazio() {
 		ItemPedido primeiroItem = this.getItens().get(0);
-		
-		if(primeiroItem != null && primeiroItem.getProduto().getId() == null){
+
+		if (primeiroItem != null && primeiroItem.getProduto().getId() == null) {
 			this.getItens().remove(0);
 		}
 	}
@@ -263,7 +263,7 @@ public class Pedido implements Serializable {
 	public boolean isEmitido() {
 		return StatusPedido.EMITIDO.equals(this.getStatus());
 	}
-	
+
 	@Transient
 	public boolean isNaoEmissivel() {
 		return !this.isEmissivel();
@@ -273,7 +273,6 @@ public class Pedido implements Serializable {
 	public boolean isEmissivel() {
 		return this.isExistente() && this.isOrcamento();
 	}
-	
 
 	@Transient
 	public boolean isNaoCancelavel() {
@@ -289,15 +288,20 @@ public class Pedido implements Serializable {
 	public boolean isCancelado() {
 		return StatusPedido.CANCELADO.equals(this.getStatus());
 	}
-	
+
 	@Transient
-	public boolean isAlteravel(){
+	public boolean isAlteravel() {
 		return this.isOrcamento();
 	}
 
 	@Transient
 	public boolean isNaoAlteravel() {
 		return !isAlteravel();
+	}
+
+	@Transient
+	public boolean isNaoEnviavelPorEmail() {
+		return this.isNovo() || this.isCancelado();
 	}
 
 }

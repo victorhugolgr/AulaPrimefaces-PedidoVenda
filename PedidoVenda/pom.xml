@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.victor</groupId>
@@ -118,6 +120,36 @@
 			<artifactId>omnifaces</artifactId>
 			<version>2.3</version>
 		</dependency>
+
+		<!-- Abstração ára envio de e-mail -->
+		<dependency>
+			<groupId>com.outjected</groupId>
+			<artifactId>simple-email</artifactId>
+			<version>0.2.5-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Requerido para envio de email -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<!-- Usamos para templates de emails -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+		<!-- Usamos para formatar números em templates -->
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools-generic</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+
 
 
 	</dependencies>
