@@ -60,20 +60,31 @@ public class UsuarioRepository implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<Usuario> filtrados(String nomeFiltro) {
-		
+
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(Usuario.class);
-		
+
 		if (StringUtils.isNotBlank(nomeFiltro)) {
 			criteria.add(Restrictions.ilike("nome", nomeFiltro, MatchMode.ANYWHERE));
 		}
-		
+
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-	
-	public List<Usuario> vendedores(){
-		return this.manager
-				.createQuery("from Usuario", Usuario.class)
-				.getResultList();
+
+	public List<Usuario> vendedores() {
+		return this.manager.createQuery("from Usuario", Usuario.class).getResultList();
+	}
+
+	public Usuario porEmail(String email) {
+		Usuario usuario = null;
+
+		try{			
+			usuario = this.manager.createQuery("from Usuario where lower(email) = :email", Usuario.class)
+					.setParameter("email", email.toLowerCase()).getSingleResult();
+		}catch(NoResultException e){
+			//nenum usuário encontrado com o e-mail informado.
+		}
+
+		return usuario;
 	}
 }
