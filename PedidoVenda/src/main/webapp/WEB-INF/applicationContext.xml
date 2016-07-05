@@ -15,6 +15,7 @@
 		<intercept-url pattern="/**" access="denyAll"/>
 	</http>
 
+
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>

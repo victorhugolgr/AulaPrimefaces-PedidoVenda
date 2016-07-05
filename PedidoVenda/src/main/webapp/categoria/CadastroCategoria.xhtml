@@ -1,4 +1,5 @@
-<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+<ui:composition
+	template="/WEB-INF/template/LayoutPadrao.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -14,27 +15,44 @@
 
 			<p:toolbar>
 				<p:toolbarGroup>
-					<p:button value="Novo" outcome="/categoria/CadastroCategoria" />
-					<p:commandButton value="Salvar"
-						action="#{cadastroCategoriaBean.salvar()}" update="@form"/>
+					<p:button
+						value="Novo"
+						outcome="/categoria/CadastroCategoria" />
+					<p:commandButton
+						value="Salvar"
+						action="#{cadastroCategoriaBean.salvar()}"
+						update="@form" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
-					<p:button value="Pesquisar" outcome="/categoria/PesquisaCategoria" />
+					<p:button
+						value="Pesquisar"
+						outcome="/categoria/PesquisaCategoria" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="painel"
-				style="width:100%; margin-top: 20px" columnClasses="rotulo,campo">
-				<p:outputLabel value="Descrição" id="descricao" />
-				<p:inputText for="descricao"
+			<p:panelGrid
+				columns="2"
+				id="painel"
+				style="width:100%; margin-top: 20px"
+				columnClasses="rotulo,campo">
+				<p:outputLabel
+					value="Descrição"
+					id="descricao" />
+				<p:inputText
+					for="descricao"
 					value="#{cadastroCategoriaBean.categoria.descricao}" />
 
-				<p:outputLabel value="Categoria Pai" id="categoriaPai" />
-				<p:selectOneMenu for="categoriaPai"
+				<p:outputLabel
+					value="Categoria Pai"
+					id="categoriaPai" />
+				<p:selectOneMenu
+					for="categoriaPai"
 					value="#{cadastroCategoriaBean.categoria.categoriaPai}">
 					<f:selectItem itemLabel="-Selecione-" />
-					<f:selectItems value="#{cadastroCategoriaBean.categoriaRaizes}"
-						var="categoriaRaizes" itemLabel="#{categoriaRaizes.descricao}"
+					<f:selectItems
+						value="#{cadastroCategoriaBean.categoriaRaizes}"
+						var="categoriaRaizes"
+						itemLabel="#{categoriaRaizes.descricao}"
 						itemValue="#{categoriaRaizes}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
