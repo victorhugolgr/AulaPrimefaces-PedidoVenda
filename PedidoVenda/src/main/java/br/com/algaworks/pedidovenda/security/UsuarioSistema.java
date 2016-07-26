@@ -13,19 +13,17 @@ public class UsuarioSistema extends User {
 
 	private Usuario usuario;
 
-	public UsuarioSistema(Usuario usuario, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
-			boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-		super(usuario.getEmail(), usuario.getSenha(), enabled, accountNonExpired, credentialsNonExpired,
-				accountNonLocked, authorities);
-		this.setUsuario(usuario);
+	public UsuarioSistema(Usuario usuario, 
+						
+						Collection<? extends GrantedAuthority> authorities) {
+		
+		super(usuario.getEmail(), usuario.getSenha(), authorities);
+		this.usuario = usuario;
 	}
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 }

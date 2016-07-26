@@ -24,7 +24,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		UsuarioSistema user = null;
 
 		if (usuario != null) {
-			user = new UsuarioSistema(usuario, true, true, true, true, getGrupos(usuario));
+			user = new UsuarioSistema(usuario, getGrupos(usuario));
 		}
 
 		return user;
