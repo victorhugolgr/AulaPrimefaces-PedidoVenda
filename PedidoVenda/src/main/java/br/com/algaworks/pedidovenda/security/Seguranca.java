@@ -1,7 +1,9 @@
-package br.com.algaworks.pedidovenda.repository;
+package br.com.algaworks.pedidovenda.security;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +13,9 @@ import br.com.algaworks.pedidovenda.security.UsuarioSistema;
 @Named
 @RequestScoped
 public class Seguranca {
+
+	@Inject
+	private ExternalContext externalContext;
 
 	public String getNomeUsuario() {
 		String nome = null;
@@ -31,11 +36,19 @@ public class Seguranca {
 		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext
 				.getCurrentInstance().getExternalContext().getUserPrincipal();
 
-		if(auth != null && auth.getPrincipal() != null){
+		if (auth != null && auth.getPrincipal() != null) {
 			usuario = (UsuarioSistema) auth.getPrincipal();
 		}
-		
+
 		return usuario;
+	}
+
+	public boolean isEmitirPedidoPermitido() {
+		return externalContext.isUserInRole("ADMINISTRADORES") || externalContext.isUserInRole("VENDEDORES");
+	}
+
+	public boolean isCancelarPedidoPermitido() {
+		return externalContext.isUserInRole("ADMINISTRADORES") || externalContext.isUserInRole("VENDEDORES");
 	}
 
 }
