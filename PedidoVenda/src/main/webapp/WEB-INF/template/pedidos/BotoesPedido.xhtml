@@ -14,10 +14,10 @@
 
 			<p:commandButton value="Emitir"
 				action="#{emissaoPedidoBean.emitirPedido}" process="@form"
-				update="@form" disabled="#{cadatroPedidoBean.pedido.naoEmissivel}" />
+				update="@form" disabled="#{cadatroPedidoBean.pedido.naoEmissivel or not seguranca.emitirPedidoPermitido}" />
 			<p:commandButton value="Cancelar"
 				action="#{cancelamentoPedidoBean.cancelarPedido}" process="@this"
-				update="@form" disabled="#{cadatroPedidoBean.pedido.naoCancelavel}" />
+				update="@form" disabled="#{cadatroPedidoBean.pedido.naoCancelavel or not seguranca.cancelarPedidoPermitido}" />
 			<p:commandButton value="Enviar por E-mail"
 				action="#{envioPedidoEmailBean.enviarPedido}" process="@this"
 				disabled="#{cadatroPedidoBean.pedido.naoEnviavelPorEmail}" />
