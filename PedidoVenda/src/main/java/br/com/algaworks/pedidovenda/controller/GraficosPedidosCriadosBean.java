@@ -37,7 +37,7 @@ public class GraficosPedidosCriadosBean{
 		LineChartSeries seriesTodosPedidos = new LineChartSeries();
 		seriesTodosPedidos.setLabel("Todos os Pedidos");
 		
-		seriesTodosPedidos.set(1, Math.random() *  100);
+		seriesTodosPedidos.set(1, Math.random() * 100);
 		seriesTodosPedidos.set(2, Math.random() * 100);
 		seriesTodosPedidos.set(3, Math.random() * 100);
 		seriesTodosPedidos.set(4, Math.random() * 100);
