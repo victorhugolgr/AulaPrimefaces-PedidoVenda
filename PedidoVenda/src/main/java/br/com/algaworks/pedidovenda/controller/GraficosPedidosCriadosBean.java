@@ -11,18 +11,17 @@ import org.primefaces.model.chart.LineChartSeries;
 
 @Named
 @RequestScoped
-public class GraficosPedidosCriadosBean{
-
+public class GraficosPedidosCriadosBean {
 
 	private LineChartModel chartModelPedidos;
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		createLineModels();
 	}
 
 	private void createLineModels() {
-		
+
 		chartModelPedidos = initChartModelPedidos();
 		chartModelPedidos.setTitle("Pedido de Venda");
 		chartModelPedidos.setLegendPosition("e");
@@ -33,28 +32,28 @@ public class GraficosPedidosCriadosBean{
 
 	private LineChartModel initChartModelPedidos() {
 		LineChartModel model = new LineChartModel();
-		
+
 		LineChartSeries seriesTodosPedidos = new LineChartSeries();
 		seriesTodosPedidos.setLabel("Todos os Pedidos");
-		
+
 		seriesTodosPedidos.set(1, Math.random() * 100);
 		seriesTodosPedidos.set(2, Math.random() * 100);
 		seriesTodosPedidos.set(3, Math.random() * 100);
 		seriesTodosPedidos.set(4, Math.random() * 100);
 		seriesTodosPedidos.set(5, Math.random() * 100);
-		
+
 		LineChartSeries seriesMeusPedidos = new LineChartSeries();
 		seriesMeusPedidos.setLabel("Todos os Pedidos");
-		
+
 		seriesMeusPedidos.set("1", Math.random() * 100);
 		seriesMeusPedidos.set("2", Math.random() * 100);
 		seriesMeusPedidos.set("3", Math.random() * 100);
 		seriesMeusPedidos.set("4", Math.random() * 100);
 		seriesMeusPedidos.set("5", Math.random() * 100);
-		
+
 		model.addSeries(seriesTodosPedidos);
 		model.addSeries(seriesMeusPedidos);
-		
+
 		return model;
 	}
 
@@ -66,5 +65,4 @@ public class GraficosPedidosCriadosBean{
 		this.chartModelPedidos = chartModelPedidos;
 	}
 
-	
 }
