@@ -166,12 +166,20 @@
 			<version>3.1.4.RELEASE</version>
 		</dependency>
 
-		<!-- JUnit 4  -->
+		<!-- JUnit 4 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 		</dependency>
+
+		<!-- JavaServlet(TM) Specification » 2.5 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
 
 
 	</dependencies>
